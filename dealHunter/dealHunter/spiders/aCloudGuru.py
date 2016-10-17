@@ -66,6 +66,7 @@ class dealHuntingSeleniumSpider(Spider):
 
             qURL_XPATH = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
             qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
+            # qUrlList = qText.find_elements_by_xpath(qURL_XPATH).get_attribute('href')
 
             for qUrl in qUrlList:
                 items.append(qUrl.get_attribute('href'))
