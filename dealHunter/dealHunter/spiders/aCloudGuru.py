@@ -14,7 +14,7 @@ from scrapy.selector import HtmlXPathSelector
 from scrapy.item import Item, Field
 
 from selenium import webdriver
-# from pyvirtualdisplay import Display
+from pyvirtualdisplay import Display
 from xvfbwrapper import Xvfb
 from pprint import pprint
 
@@ -25,12 +25,11 @@ class msgBoardScraper(Spider):
     allowed_domains = [ "acloud.guru" ]
 
     def __init__(self, category=None, *args, **kwargs):
-
-        
         
         super(msgBoardScraper, self).__init__(*args, **kwargs)    
 
-        self.start_urls = [ "https://acloud.guru/forums/all/s3" ]
+        # self.start_urls = [ "https://acloud.guru/forums/all/s3" ]
+        self.start_urls = [ "https://acloud.guru/forums/all/rds" ]
 
     def parse(self, response):
 
@@ -41,7 +40,7 @@ class msgBoardScraper(Spider):
 
         print "===========\nPrinting in main loop\n"
         pprint(question_Urls)
-        print "===========\nPrinting in main loop\n"
+        print "===========\n"
 
         self.tearDownBrowser()
 
@@ -55,6 +54,10 @@ class msgBoardScraper(Spider):
         # Ref - https://github.com/cgoldberg/xvfbwrapper    
         self.vdisplay = Xvfb(width=1280, height=720)
         self.vdisplay.start()
+
+        self.display = Display(visible=0, size=(1280, 720))
+        self.display.start()
+
         self.driver = webdriver.Firefox()
 
 
@@ -79,10 +82,9 @@ class msgBoardScraper(Spider):
         qText_XPATH = "//div[@class='discussion-list-entry-body']"
         qURL_XPATH = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
 
-
         self.driver.get(response.url)
 
-        # self.driver.wait_for_page_to_load("30000")
+        # self.driver.wait_for_page_to_load("45000")
         time.sleep(45)
         # self.driver.implicitly_wait(pageLoadWaitTime) 
         # self.driver.implicitly_wait(30) 
@@ -104,18 +106,19 @@ class msgBoardScraper(Spider):
                 # set for debugging, You can use 's' to step, 'n' to follow next line
                 # pdb.set_trace()
     
-                # print qText.get_attribute('outerHTML') 
+                print qText.get_attribute('outerHTML') 
     
-                qURL_XPATH = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
+                
                 qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
                 # qUrlList = qText.find_elements_by_xpath(qURL_XPATH).get_attribute('href')
     
                 for qUrl in qUrlList:
                     urlItems.append(qUrl.get_attribute('href'))
+
                 
-            print "~~~~~~~~~~~~\n BEGIN : Printing inside function loop\n"
-            pprint(question_Urls)
-            print "~~~~~~~~~~~~\n END : Printing inside function loop\n"
+                    print "\n ~~~~~~BEGIN~~~~~~ Printing inside function loop\n"
+                    # print qUrl.text
+                    print "\n ~~~~~~END~~~~~~ Printing inside function loop\n"
 
             return urlItems
 
