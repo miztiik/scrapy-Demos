@@ -38,7 +38,7 @@ class msgBoardScraper(Spider):
         question_Urls = []
         question_Urls = self.collectUrls(response)
 
-        print "===========\nPrinting in main loop\n"
+        print "\n===========Printing in mains=========\n"
         pprint(question_Urls)
         print "===========\n"
 
@@ -55,9 +55,6 @@ class msgBoardScraper(Spider):
         self.vdisplay = Xvfb(width=1280, height=720)
         self.vdisplay.start()
 
-        self.display = Display(visible=0, size=(1280, 720))
-        self.display.start()
-
         self.driver = webdriver.Firefox()
 
 
@@ -69,27 +66,27 @@ class msgBoardScraper(Spider):
         self.driver.quit()
         self.vdisplay.stop()
 
+
     """
     Function to collect the Urls in a given page
     """
     def collectUrls(self,response):
         
         urlItems = []
-        # The time to wait for the webpage to laod in seconds
-        pageLoadWaitTime = 30
 
         # The XPATH Location identifiers to make it configurable
         qText_XPATH = "//div[@class='discussion-list-entry-body']"
         qURL_XPATH = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
+                                   
+        # The time to wait for the webpage to laod in seconds
+        pageLoadWaitTime = 45
 
+        self.driver.implicitly_wait(pageLoadWaitTime) 
         self.driver.get(response.url)
 
         # self.driver.wait_for_page_to_load("45000")
-        time.sleep(45)
-        # self.driver.implicitly_wait(pageLoadWaitTime) 
-        # self.driver.implicitly_wait(30) 
+        time.sleep(pageLoadWaitTime)
         
-
         # self.driver.find_element_by_id('login').click()
 
         try:
@@ -110,26 +107,20 @@ class msgBoardScraper(Spider):
     
                 
                 qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
-                # qUrlList = qText.find_elements_by_xpath(qURL_XPATH).get_attribute('href')
     
                 for qUrl in qUrlList:
                     urlItems.append(qUrl.get_attribute('href'))
 
+        # with wait_for_page_load(self.driver):
+        #    self.driver.find_element_by_link_text('my link').click()
                 
-                    print "\n ~~~~~~BEGIN~~~~~~ Printing inside function loop\n"
-                    # print qUrl.text
-                    print "\n ~~~~~~END~~~~~~ Printing inside function loop\n"
-
-            return urlItems
-
         except:
             print "Could not find any Topics"
             
-            #with wait_for_page_load(self.driver):
-            #    self.driver.find_element_by_link_text('my link').click()
 
         finally:
             print "all done"
+            return urlItems
 
 class wait_for_page_load(object):
 
