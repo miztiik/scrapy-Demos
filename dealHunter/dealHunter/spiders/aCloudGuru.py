@@ -7,40 +7,47 @@
 # from scrapy import log
 # from scrapy.selector import HtmlXPathSelector
  
-# import pdb
+import pdb
 
+# Imports for Scrapy spider
 from scrapy.spiders import Spider
 from scrapy.selector import HtmlXPathSelector
 from scrapy.item import Item, Field
 
-from selenium import webdriver
-from pyvirtualdisplay import Display
+# Imports for virtual display
 from xvfbwrapper import Xvfb
 from pprint import pprint
 
 import time
 
-class msgBoardScraper(Spider):
-    name = "msgBoardScraper"
+# Imports for virtual browser  & wait conditions
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+class tspidy(Spider):
+    name = "tspidy"
     allowed_domains = [ "acloud.guru" ]
 
-    def __init__(self, category=None, *args, **kwargs):
-        
-        super(msgBoardScraper, self).__init__(*args, **kwargs)    
-
-        # self.start_urls = [ "https://acloud.guru/forums/all/s3" ]
-        self.start_urls = [ "https://acloud.guru/forums/all/rds" ]
+    def __init__(self, filename=None):
+        #self.start_urls = [ "https://acloud.guru/forums/all/s3" ]
+        self.start_urls = [ "http://www.google.co.in# " ]
 
     def parse(self, response):
 
         self.setUpBrowser()
 
-        question_Urls = []
-        question_Urls = self.collectUrls(response)
+        queryLnks = []
+
+        self.urlMetadata = {}
+
+        self.urlMetadata['s3'] = { "url": "https://acloud.guru/forums/all/rds" ,"crawled": True, "pgCrawled" : 0 }
+ 
+        queryLnks = self.collectUrls()
 
         print "\n===========Printing in mains=========\n"
-        pprint(question_Urls)
-        print "===========\n"
+        pprint(queryLnks)
 
         self.tearDownBrowser()
 
@@ -48,15 +55,12 @@ class msgBoardScraper(Spider):
     Function to setup the Browser
     """
     def setUpBrowser(self):
-        # Xvfb -br -nolisten tcp -screen 0 1024x768x24 :1025
-
         # Set the web browser parameters to not show gui ( aka headless)
         # Ref - https://github.com/cgoldberg/xvfbwrapper    
         self.vdisplay = Xvfb(width=1280, height=720)
         self.vdisplay.start()
 
         self.driver = webdriver.Firefox()
-
 
     """
     Function to close the Browser
@@ -66,61 +70,89 @@ class msgBoardScraper(Spider):
         self.driver.quit()
         self.vdisplay.stop()
 
-
     """
     Function to collect the Urls in a given page
     """
-    def collectUrls(self,response):
+    def collectUrls(self):
+
         
         urlItems = []
 
         # The XPATH Location identifiers to make it configurable
+
+        ## The XPATH ID of the element for which the the page load waits before processing other requests
+        ec_XPATH = "//div/div[@class='discussion-list-entry-body']/div[@class='secondary-row']/a/span"
+
         qText_XPATH = "//div[@class='discussion-list-entry-body']"
         qURL_XPATH = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
-                                   
+
+        # nxtPageBtn_XPATH = "//div[@class='clearfix p']/li[@class='paginate_button next']/a"
+
         # The time to wait for the webpage to laod in seconds
-        pageLoadWaitTime = 45
-
-        self.driver.implicitly_wait(pageLoadWaitTime) 
-        self.driver.get(response.url)
-
-        # self.driver.wait_for_page_to_load("45000")
-        time.sleep(pageLoadWaitTime)
+        pageLoadWaitTime = 10
+        # Lets be nice and crawl only limited pages
+        crawlPgLimit = 2
+       
+        # self.driver.get(self.urlMetadata['s3']['url'])
+        self.driver.get("https://acloud.guru/forums/all/s3")
         
-        # self.driver.find_element_by_id('login').click()
-
-        try:
-
-            # Example CSS href selection
-            # div = self.driver.find_element_by_class_name('someclass')
-            # div.find_element_by_css_selector('a').get_attribute('href')
+        time.sleep(pageLoadWaitTime)       
+        
+        while self.urlMetadata["s3"]["pgCrawled"] < crawlPgLimit:
+            try:
     
-            # self.driver.find_element_by_css_selector('.someclass a').get_attribute('href')
-            qText_divs = self.driver.find_elements_by_xpath(qText_XPATH)
-    
-            for qText in qText_divs:
-    
-                # set for debugging, You can use 's' to step, 'n' to follow next line
-                # pdb.set_trace()
-    
-                print qText.get_attribute('outerHTML') 
-    
+                # Check if the page has the necessary elements before we start scraping
                 
-                qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
-    
-                for qUrl in qUrlList:
-                    urlItems.append(qUrl.get_attribute('href'))
+                print self.driver.find_elements_by_xpath(ec_XPATH)
 
-        # with wait_for_page_load(self.driver):
-        #    self.driver.find_element_by_link_text('my link').click()
+                #element_present = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.text_to_be_present_in_element_value((By.XPATH, ec_XPATH), "ago"))
+                element_present = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.presence_of_all_elements_located((By.XPATH, ec_XPATH)))
+
+                # print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                # print element_present
+                # print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+
+                # Find all the question div tags and iterate in for loop for the link reference
+                qText_divs = self.driver.find_elements_by_xpath(qText_XPATH)
+        
+                for qText in qText_divs:
+
+                    print "\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                    print qText.get_attribute('outerHTML') 
+                    print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
+                    
+                    
+                    qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
+        
+                    for qUrl in qUrlList:
+                        urlItems.append(qUrl.get_attribute('href'))
+                  
+            except:
+                print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                print "           THE PAGE DID NOT LOAD PROPERLY         "
+                print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 
-        except:
-            print "Could not find any Topics"
-            
+    
+            finally:
+                print "all done"
 
-        finally:
-            print "all done"
-            return urlItems
+                print self.driver.find_element_by_link_text('Next').get_attribute('outerHTML')
+                
+                self.urlMetadata["s3"]["pgCrawled"] += 1
+                # self.driver.find_element_by_xpath(nxtPageBtn_XPATH).click()
+                # self.driver.find_element_by_link_text('Next').click()
+                #pdb.set_trace()
+                print "\n~~~~~~~~~ Increment\n"
+                print self.urlMetadata["s3"]["pgCrawled"]
+                print "\n~~~~~~~~~ Incremented\n"
+        
+        return urlItems
+
+    """
+    Function to load Next Page
+    """
+    def loadNextPage(self):
+        print("Function to be written")
 
 class wait_for_page_load(object):
 
