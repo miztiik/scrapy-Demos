@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# from scrapy.item import Item, Field
-
-# from scrapy.http import FormRequest
-# from scrapy import log
-# from scrapy.selector import HtmlXPathSelector
- 
 import pdb
 
 # Imports for Scrapy spider
@@ -18,8 +12,6 @@ from scrapy.item import Item, Field
 from xvfbwrapper import Xvfb
 from pprint import pprint
 
-import time
-
 # Imports for virtual browser  & wait conditions
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -28,32 +20,44 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # Imports for hovering & clicking
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
 
-import httplib
+import time, httplib, json
+
+# Imports for AWS Interaction
+import boto3
 
 class tspidy(Spider):
     name = "tspidy"
     allowed_domains = [ "acloud.guru" ]
 
-    def __init__(self, filename=None):
+    def __init__(self):
         #self.start_urls = [ "https://acloud.guru/forums/all/s3" ]
-        self.start_urls = [ "http://www.google.co.in# " ]
+        self.start_urls = [ "http://www.google.co.in" ]
 
     def parse(self, response):
 
         self.setUpBrowser()
 
-        queryLnks = []
+        dataDump = {}
 
-        self.urlMetadata = {}
+        aCloudTopicUrls = {}
 
-        self.urlMetadata['s3'] = { "url": "https://acloud.guru/forums/all/rds" ,"crawled": True, "pgCrawled" : 0 }
- 
-        queryLnks = self.collectUrls()
+        aCloudTopicUrls['s3']  = { 'awsTag' : 's3' , 'url' : 'https://acloud.guru/forums/all/s3' ,  'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
+        aCloudTopicUrls['rds'] = { 'awsTag' : 'rds' , 'url' : 'https://acloud.guru/forums/all/rds' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
+        aCloudTopicUrls['elb'] = { 'awsTag' : 'elb' , 'url' : 'https://acloud.guru/forums/all/elb' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
+        aCloudTopicUrls['ec2'] = { 'awsTag' : 'ec2' , 'url' : 'https://acloud.guru/forums/all/ec2' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
+        aCloudTopicUrls['vpc'] = { 'awsTag' : 'vpc' , 'url' : 'https://acloud.guru/forums/all/vpc' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
 
-        print "\n===========Printing in mains=========\n"
-        pprint(queryLnks)
+        # Lets be nice and crawl only limited pages
+        try:
+            dataDump = self.collectUrls(aCloudTopicUrls['s3'])
+
+            self.writeToFile(dataDump)
+    
+            # print "\n===========Printing in mains=========\n"
+            # pprint(dataDump)
+        except:
+            print "Not able to get links properly"    
 
         self.tearDownBrowser()
 
@@ -64,8 +68,8 @@ class tspidy(Spider):
         # Set the web browser parameters to not show gui ( aka headless)
         # Ref - https://github.com/cgoldberg/xvfbwrapper    
         
-        self.vdisplay = Xvfb(width=1280, height=720)
-        self.vdisplay.start()
+        #self.vdisplay = Xvfb(width=1280, height=720)
+        #self.vdisplay.start()
 
         self.driver = webdriver.Firefox()
 
@@ -75,49 +79,41 @@ class tspidy(Spider):
     def tearDownBrowser(self):
         # Stop the browser & close the display
         self.driver.quit()
-        self.vdisplay.stop()
+        #self.vdisplay.stop()
 
     """
     Function to collect the Urls in a given page
     """
-    def collectUrls(self):
-
-        
+    def collectUrls(self,urlMetadata):
         urlItems = []
 
         # The XPATH Location identifiers to make it configurable
 
         ## The XPATH ID of the element for which the the page load waits before processing other requests
-        ec_XPATH = "//div/div[@class='discussion-list-entry-body']/div[@class='secondary-row']/a/span"
-
-        qText_XPATH = "//div[@class='discussion-list-entry-body']"
-        qURL_XPATH = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
-
+        ec_XPATH        = "//div/div[@class='discussion-list-entry-body']/div[@class='secondary-row']/a/span"
+        qText_XPATH     = "//div[@class='discussion-list-entry-body']"
+        qURL_XPATH      = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
+        qPopular_XPATH  = "//ul[@class='nav nav-tabs']/li[@heading='Most Popular']/a"
         # nxtPageBtn_XPATH = "//div[@class='clearfix p']/li[@class='paginate_button next']/a"
 
         # The time to wait for the webpage to laod in seconds
-        pageLoadWaitTime = 10
-        # Lets be nice and crawl only limited pages
-        crawlPgLimit = 2
-       
-        # self.driver.get(self.urlMetadata['s3']['url'])
-        self.driver.get("https://acloud.guru/forums/all/s3")
-        
-        time.sleep(pageLoadWaitTime)       
-        
-        while self.urlMetadata["s3"]["pgCrawled"] < crawlPgLimit:
-            try:
-    
-                # Check if the page has the necessary elements before we start scraping
-                
-                print self.driver.find_elements_by_xpath(ec_XPATH)
+        pageLoadWaitTime = 15
 
-                #element_present = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.text_to_be_present_in_element_value((By.XPATH, ec_XPATH), "ago"))
+        self.driver.get(urlMetadata['url'])
+        
+        while urlMetadata['pgCrawled'] < urlMetadata['crawlPgLimit']:
+            try:
+                
+
+                # Check if the page has the necessary elements before we start scraping
+                # element_present = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.text_to_be_present_in_element_value((By.XPATH, ec_XPATH), "ago"))
                 element_present = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.presence_of_all_elements_located((By.XPATH, ec_XPATH)))
 
-                # print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                # print element_present
-                # print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                # Move to the most popular questions Tab
+                qPopularBtn = self.driver.find_element_by_xpath(qPopular_XPATH)
+                self.driver.execute_script('arguments[0].click();', qPopularBtn)
+
+                time.sleep(pageLoadWaitTime)
 
                 # Find all the question div tags and iterate in for loop for the link reference
                 qText_divs = self.driver.find_elements_by_xpath(qText_XPATH)
@@ -128,7 +124,6 @@ class tspidy(Spider):
         
                     for qUrl in qUrlList:
                         urlItems.append(qUrl.get_attribute('href'))
-                pprint(urlItems)
 
             except:
                 print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -137,21 +132,16 @@ class tspidy(Spider):
                 
     
             finally:
-                print "\n\n\t\tAll done in this page, Lets go to next page\n"
-                self.urlMetadata["s3"]["pgCrawled"] += 1
+                urlMetadata['pgCrawled'] += 1
                 
                 nextBtn = self.driver.find_element_by_link_text('Next')
-
-                print nextBtn.get_attribute('outerHTML')
-                
+               
                 # Wont work because of bug - https://github.com/SeleniumHQ/selenium/issues/2285
                 # hover_over_nextBtn = self.driver.find_element_by_link_text('Next')
                 # hover = ActionChains(self.driver).move_to_element(hover_over_nextBtn)
                 # hover.perform()
 
                 try:
-                    # pdb.set_trace()
-
                     # Asynchronous execution
                     # self.driver.execute_async_script('arguments[0].click();', nextBtn)
                     self.driver.execute_script('arguments[0].click();', nextBtn)
@@ -159,17 +149,32 @@ class tspidy(Spider):
                     print "\n\n\t\tERROR : FAILED - To click on 'Next' button to navigate to next page\n"
                     pass
                 
-                print "\n~~~~~~~~~ Increment\n"
-                print self.urlMetadata["s3"]["pgCrawled"]
-                print "\n~~~~~~~~~ Incremented\n"
-        
-        return urlItems
+                print "\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                print "All done in this page, Lets go to next page : {0}".format(urlMetadata['pgCrawled'])
+                print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
 
-    """
-    Function to load Next Page
-    """
-    def loadNextPage(self):
-        print("Function to be written")
+        # Unique the list
+        urlItemsSet = set(urlItems)
+        urlItems = list(urlItemsSet)
+        
+        # Prepare data to be dumpted to file
+        dataDump = {}
+        dataDump['awsTag'] = urlMetadata['awsTag']
+        dataDump['pgCrawled'] = str(urlMetadata['pgCrawled'] - 1)
+        dataDump['crawled'] = "True"
+        dataDump['uri'] = urlItems
+
+        return dataDump
+
+    def writeToFile(self, dataDump):
+        pdb.set_trace()
+        dataDumpJson = json.dumps(dataDumpDict)
+        with open('acloudguru-%s.txt' % dataDumpDict['awsTag'], 'w') as f:
+            f.write("%s" % dataDumpJson)
+
+        with open('acloudguru-%s.txt' % dataDump['awsTag'], 'w') as f:
+            json.dump(dataDump, f, indent=4,sort_keys=true)
+        return
 
 class wait_for_page_load(object):
 
