@@ -26,6 +26,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# Imports for hovering & clicking
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+
+import httplib
+
 class tspidy(Spider):
     name = "tspidy"
     allowed_domains = [ "acloud.guru" ]
@@ -57,6 +63,7 @@ class tspidy(Spider):
     def setUpBrowser(self):
         # Set the web browser parameters to not show gui ( aka headless)
         # Ref - https://github.com/cgoldberg/xvfbwrapper    
+        
         self.vdisplay = Xvfb(width=1280, height=720)
         self.vdisplay.start()
 
@@ -115,18 +122,14 @@ class tspidy(Spider):
                 # Find all the question div tags and iterate in for loop for the link reference
                 qText_divs = self.driver.find_elements_by_xpath(qText_XPATH)
         
-                for qText in qText_divs:
-
-                    print "\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                    print qText.get_attribute('outerHTML') 
-                    print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
-                    
+                for qText in qText_divs:                   
                     
                     qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
         
                     for qUrl in qUrlList:
                         urlItems.append(qUrl.get_attribute('href'))
-                  
+                pprint(urlItems)
+
             except:
                 print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                 print "           THE PAGE DID NOT LOAD PROPERLY         "
@@ -134,14 +137,28 @@ class tspidy(Spider):
                 
     
             finally:
-                print "all done"
-
-                print self.driver.find_element_by_link_text('Next').get_attribute('outerHTML')
-                
+                print "\n\n\t\tAll done in this page, Lets go to next page\n"
                 self.urlMetadata["s3"]["pgCrawled"] += 1
-                # self.driver.find_element_by_xpath(nxtPageBtn_XPATH).click()
-                # self.driver.find_element_by_link_text('Next').click()
-                #pdb.set_trace()
+                
+                nextBtn = self.driver.find_element_by_link_text('Next')
+
+                print nextBtn.get_attribute('outerHTML')
+                
+                # Wont work because of bug - https://github.com/SeleniumHQ/selenium/issues/2285
+                # hover_over_nextBtn = self.driver.find_element_by_link_text('Next')
+                # hover = ActionChains(self.driver).move_to_element(hover_over_nextBtn)
+                # hover.perform()
+
+                try:
+                    # pdb.set_trace()
+
+                    # Asynchronous execution
+                    # self.driver.execute_async_script('arguments[0].click();', nextBtn)
+                    self.driver.execute_script('arguments[0].click();', nextBtn)
+                except httplib.BadStatusLine:
+                    print "\n\n\t\tERROR : FAILED - To click on 'Next' button to navigate to next page\n"
+                    pass
+                
                 print "\n~~~~~~~~~ Increment\n"
                 print self.urlMetadata["s3"]["pgCrawled"]
                 print "\n~~~~~~~~~ Incremented\n"
