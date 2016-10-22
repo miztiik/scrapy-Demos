@@ -165,6 +165,7 @@ class tspidy(Spider):
         # Prepare data to be dumpted to file
         dataDump = {}
         dataDump['awsTag'] = urlMetadata['awsTag']
+        dataDump['sourceUrl'] = urlMetadata['url']
         dataDump['pgCrawled'] = str( urlMetadata['pgCrawled'] )
         dataDump['crawled'] = "True"
         dataDump['uri'] = list(urlItemsSet)
