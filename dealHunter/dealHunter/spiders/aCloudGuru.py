@@ -43,14 +43,16 @@ class tspidy(Spider):
         aCloudTopicUrls = {}
 
         aCloudTopicUrls['s3']  = { 'awsTag' : 's3' , 'url' : 'https://acloud.guru/forums/all/s3' ,  'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
-        aCloudTopicUrls['rds'] = { 'awsTag' : 'rds' , 'url' : 'https://acloud.guru/forums/all/rds' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
-        aCloudTopicUrls['elb'] = { 'awsTag' : 'elb' , 'url' : 'https://acloud.guru/forums/all/elb' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
-        aCloudTopicUrls['ec2'] = { 'awsTag' : 'ec2' , 'url' : 'https://acloud.guru/forums/all/ec2' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
-        aCloudTopicUrls['vpc'] = { 'awsTag' : 'vpc' , 'url' : 'https://acloud.guru/forums/all/vpc' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 15 }
+        aCloudTopicUrls['rds'] = { 'awsTag' : 'rds' , 'url' : 'https://acloud.guru/forums/all/rds' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
+        aCloudTopicUrls['elb'] = { 'awsTag' : 'elb' , 'url' : 'https://acloud.guru/forums/all/elb' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
+        aCloudTopicUrls['ec2'] = { 'awsTag' : 'ec2' , 'url' : 'https://acloud.guru/forums/all/ec2' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
+        aCloudTopicUrls['vpc'] = { 'awsTag' : 'vpc' , 'url' : 'https://acloud.guru/forums/all/vpc' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
+        aCloudTopicUrls['sns'] = { 'awsTag' : 'sns' , 'url' : 'https://acloud.guru/forums/all/sns' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
+        aCloudTopicUrls['sqs'] = { 'awsTag' : 'sqs' , 'url' : 'https://acloud.guru/forums/all/sqs' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
 
         # Lets be nice and crawl only limited pages
         try:
-            dataDump = self.collectUrls(aCloudTopicUrls['s3'])
+            dataDump = self.collectUrls(aCloudTopicUrls['sns'])
 
             self.writeToFile(dataDump)
     
@@ -65,7 +67,7 @@ class tspidy(Spider):
     Function to setup the Browser
     """
     def setUpBrowser(self):
-        # Set the web browser parameters to not show gui ( aka headless)
+        # Set the web browser parameters to not show gui ( aka headless )
         # Ref - https://github.com/cgoldberg/xvfbwrapper    
         
         #self.vdisplay = Xvfb(width=1280, height=720)
@@ -78,8 +80,11 @@ class tspidy(Spider):
     """
     def tearDownBrowser(self):
         # Stop the browser & close the display
+
+        # Although github says quit works, it throws me an error
+        # Ref - https://github.com/SeleniumHQ/selenium/issues/1469
         self.driver.quit()
-        #self.vdisplay.stop()
+        # self.vdisplay.stop()
 
     """
     Function to collect the Urls in a given page
@@ -147,34 +152,34 @@ class tspidy(Spider):
                     self.driver.execute_script('arguments[0].click();', nextBtn)
                 except httplib.BadStatusLine:
                     print "\n\n\t\tERROR : FAILED - To click on 'Next' button to navigate to next page\n"
-                    pass
+                    # pass
+                    break
                 
                 print "\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                print "All done in this page, Lets go to next page : {0}".format(urlMetadata['pgCrawled'])
+                print "All done in this page, Lets go to page : {0}".format(urlMetadata['pgCrawled'])
                 print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
 
         # Unique the list
         urlItemsSet = set(urlItems)
-        urlItems = list(urlItemsSet)
         
         # Prepare data to be dumpted to file
         dataDump = {}
         dataDump['awsTag'] = urlMetadata['awsTag']
-        dataDump['pgCrawled'] = str(urlMetadata['pgCrawled'] - 1)
+        dataDump['pgCrawled'] = str( urlMetadata['pgCrawled'] )
         dataDump['crawled'] = "True"
-        dataDump['uri'] = urlItems
+        dataDump['uri'] = list(urlItemsSet)
 
         return dataDump
 
     def writeToFile(self, dataDump):
         pdb.set_trace()
-        dataDumpJson = json.dumps(dataDumpDict)
-        with open('acloudguru-%s.txt' % dataDumpDict['awsTag'], 'w') as f:
-            f.write("%s" % dataDumpJson)
+        # dataDumpJson = json.dumps(dataDump)
+        # with open('1acloudguru-%s.json' % dataDump['awsTag'], 'w') as f:
+        #     f.write("%s" % dataDumpJson)
 
-        with open('acloudguru-%s.txt' % dataDump['awsTag'], 'w') as f:
-            json.dump(dataDump, f, indent=4,sort_keys=true)
-        return
+        with open('acloudguru-%s.json' % dataDump['awsTag'], 'w') as f:
+            json.dump(dataDump, f, indent=4,sort_keys=True)
+        
 
 class wait_for_page_load(object):
 
