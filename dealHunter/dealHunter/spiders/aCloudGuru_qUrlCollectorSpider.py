@@ -55,7 +55,7 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
 
         # Lets be nice and crawl only limited pages
         try:
-            dataDump = self.collectUrls(aCloudTopicUrls['elb'])
+            dataDump = self.collectUrls(aCloudTopicUrls['s3'])
 
             self.writeToFile(dataDump)
     

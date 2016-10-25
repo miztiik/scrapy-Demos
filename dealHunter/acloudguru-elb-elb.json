@@ -1,0 +1,32 @@
+{
+    "Answers": {
+        "usr-1": [
+            "i think that page contains some misinformation. it's not multiple devices that's the issue, it's the transport layer. ", 
+            "'sticky sessions' can only be enabled via a HTTP/HTTPS load balancer (which communicates, of course, via the HTTP layer). however, if you wish to use just SSL via the TCP layer, you must use a TCP load balancer.", 
+            "the diagram on that page shows three ELBs as an example. to implement the pattern discussed here, though, you would indeed 'need' only two: one enabled as HTTP/HTTPS and one enabled as TCP/SSL."
+        ], 
+        "usr-2": [
+            "Good Morning,", 
+            "I had a look at the AWS doco and I agree with Deesee.  AWS now support Sticky sessions out of the box, since 2010. Have a look at Jeff Barr's Blog.\nhttps://aws.amazon.com/blogs/aws/new-elastic-load-balancing-feature-sticky-sessions/ ", 
+            "That design page is not really about sticky sessions, it is about catering for different device types, and using the ELB for SSL termination.  ", 
+            "Rusty"
+        ], 
+        "usr-3": [
+            "Hi San,", 
+            "That link does not go anywhere.  Can you provide another link, or search criteria to the content.\nI will try to get back to you tomorrow if you can update the information.", 
+            "Rusty"
+        ]
+    }, 
+    "Question": [
+        "According to the following cloud design pattern, if a web application is multi-device compatible and we need SSL/Sticky sessions for them then we need to implement multiple ELBs to solve this issue. Am wondering why can't we use just 2 ELBs. One for handling SSLs and other for Sticky Sessions ? What's wrong with this approach ? Can someone please clarify.", 
+        "http://en.clouddesignpattern.org/index.php/CDP:MultiLoadBalancer_Pattern"
+    ], 
+    "Tags": [
+        "elb"
+    ], 
+    "awsTag": "elb", 
+    "crawled": "True", 
+    "pageLoadWaitTime": 60, 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/course/aws-certified-solutions-architect-professional/discuss/-KAmC01FWYI1WnCgpWaT/elb-design-patterns"
+}
