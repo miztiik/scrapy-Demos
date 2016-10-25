@@ -17,6 +17,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.remote.remote_connection import LOGGER
+# LOGGER.setLevel(logging.WARNING)
 
 # Imports for hovering & clicking
 from selenium.webdriver.common.action_chains import ActionChains
@@ -26,8 +29,8 @@ import time, httplib, json
 # Imports for AWS Interaction
 import boto3
 
-class tspidy(Spider):
-    name = "tspidy"
+class aCloudGuru_qUrlCollectorSpider(Spider):
+    name = "aCloudGuru_qUrlCollectorSpider"
     allowed_domains = [ "acloud.guru" ]
 
     def __init__(self):
@@ -42,17 +45,17 @@ class tspidy(Spider):
 
         aCloudTopicUrls = {}
 
-        aCloudTopicUrls['s3']  = { 'awsTag' : 's3' , 'url' : 'https://acloud.guru/forums/all/s3' ,  'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
-        aCloudTopicUrls['rds'] = { 'awsTag' : 'rds' , 'url' : 'https://acloud.guru/forums/all/rds' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
-        aCloudTopicUrls['elb'] = { 'awsTag' : 'elb' , 'url' : 'https://acloud.guru/forums/all/elb' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
-        aCloudTopicUrls['ec2'] = { 'awsTag' : 'ec2' , 'url' : 'https://acloud.guru/forums/all/ec2' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
-        aCloudTopicUrls['vpc'] = { 'awsTag' : 'vpc' , 'url' : 'https://acloud.guru/forums/all/vpc' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
-        aCloudTopicUrls['sns'] = { 'awsTag' : 'sns' , 'url' : 'https://acloud.guru/forums/all/sns' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
-        aCloudTopicUrls['sqs'] = { 'awsTag' : 'sqs' , 'url' : 'https://acloud.guru/forums/all/sqs' ,'crawled': "False", 'pgCrawled' : 0, 'crawlPgLimit' : 2 }
+        aCloudTopicUrls['s3']  = { 'awsTag' : 's3' ,  'sourceUrl' : 'https://acloud.guru/forums/all/s3' , 'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
+        aCloudTopicUrls['rds'] = { 'awsTag' : 'rds' , 'sourceUrl' : 'https://acloud.guru/forums/all/rds' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
+        aCloudTopicUrls['elb'] = { 'awsTag' : 'elb' , 'sourceUrl' : 'https://acloud.guru/forums/all/elb' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
+        aCloudTopicUrls['ec2'] = { 'awsTag' : 'ec2' , 'sourceUrl' : 'https://acloud.guru/forums/all/ec2' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
+        aCloudTopicUrls['vpc'] = { 'awsTag' : 'vpc' , 'sourceUrl' : 'https://acloud.guru/forums/all/vpc' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
+        aCloudTopicUrls['sns'] = { 'awsTag' : 'sns' , 'sourceUrl' : 'https://acloud.guru/forums/all/sns' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
+        aCloudTopicUrls['sqs'] = { 'awsTag' : 'sqs' , 'sourceUrl' : 'https://acloud.guru/forums/all/sqs' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
 
         # Lets be nice and crawl only limited pages
         try:
-            dataDump = self.collectUrls(aCloudTopicUrls['sns'])
+            dataDump = self.collectUrls(aCloudTopicUrls['elb'])
 
             self.writeToFile(dataDump)
     
@@ -70,8 +73,8 @@ class tspidy(Spider):
         # Set the web browser parameters to not show gui ( aka headless )
         # Ref - https://github.com/cgoldberg/xvfbwrapper    
         
-        #self.vdisplay = Xvfb(width=1280, height=720)
-        #self.vdisplay.start()
+        self.vdisplay = Xvfb(width=1280, height=720)
+        self.vdisplay.start()
 
         self.driver = webdriver.Firefox()
 
@@ -84,7 +87,7 @@ class tspidy(Spider):
         # Although github says quit works, it throws me an error
         # Ref - https://github.com/SeleniumHQ/selenium/issues/1469
         self.driver.quit()
-        # self.vdisplay.stop()
+        self.vdisplay.stop()
 
     """
     Function to collect the Urls in a given page
@@ -102,18 +105,17 @@ class tspidy(Spider):
         # nxtPageBtn_XPATH = "//div[@class='clearfix p']/li[@class='paginate_button next']/a"
 
         # The time to wait for the webpage to laod in seconds
-        pageLoadWaitTime = 15
+        pageLoadWaitTime = 30
 
-        self.driver.get(urlMetadata['url'])
+        self.driver.set_page_load_timeout(pageLoadWaitTime)
+        self.driver.get(urlMetadata['sourceUrl'])
         
-        while urlMetadata['pgCrawled'] < urlMetadata['crawlPgLimit']:
+        for crawlCount in range(int(urlMetadata['crawlPgLimit'])):
             try:
-                
-
                 # Check if the page has the necessary elements before we start scraping
-                # element_present = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.text_to_be_present_in_element_value((By.XPATH, ec_XPATH), "ago"))
-                element_present = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.presence_of_all_elements_located((By.XPATH, ec_XPATH)))
-
+                element_present_check_1 = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.presence_of_all_elements_located((By.XPATH, ec_XPATH)))
+                # element_present_check_2 = WebDriverWait(self.driver, pageLoadWaitTime).until(EC.text_to_be_present_in_element_value((By.XPATH, ec_XPATH), "ago"))
+                
                 # Move to the most popular questions Tab
                 qPopularBtn = self.driver.find_element_by_xpath(qPopular_XPATH)
                 self.driver.execute_script('arguments[0].click();', qPopularBtn)
@@ -123,22 +125,28 @@ class tspidy(Spider):
                 # Find all the question div tags and iterate in for loop for the link reference
                 qText_divs = self.driver.find_elements_by_xpath(qText_XPATH)
         
-                for qText in qText_divs:                   
+                for qText in qText_divs:
                     
                     qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
         
                     for qUrl in qUrlList:
                         urlItems.append(qUrl.get_attribute('href'))
 
+                urlMetadata['pgCrawled'] += 1
+
+            except TimeoutException:
+                self.driver.execute_script("window.stop();")
+                print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                print "           THE PAGE DID NOT LOAD PROPERLY         "
+                print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+
             except:
                 print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                 print "           THE PAGE DID NOT LOAD PROPERLY         "
                 print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 
-    
             finally:
-                urlMetadata['pgCrawled'] += 1
-                
+                crawlCount += 1
                 nextBtn = self.driver.find_element_by_link_text('Next')
                
                 # Wont work because of bug - https://github.com/SeleniumHQ/selenium/issues/2285
@@ -163,17 +171,13 @@ class tspidy(Spider):
         urlItemsSet = set(urlItems)
         
         # Prepare data to be dumpted to file
-        dataDump = {}
-        dataDump['awsTag'] = urlMetadata['awsTag']
-        dataDump['sourceUrl'] = urlMetadata['url']
-        dataDump['pgCrawled'] = str( urlMetadata['pgCrawled'] )
-        dataDump['crawled'] = "True"
-        dataDump['uri'] = list(urlItemsSet)
-
-        return dataDump
+        urlMetadata['pgCrawled'] = str( urlMetadata['pgCrawled'] )
+        urlMetadata['uri'] = list(urlItemsSet)
+        urlMetadata['crawled'] = 'True'
+        return urlMetadata
 
     def writeToFile(self, dataDump):
-        pdb.set_trace()
+        # pdb.set_trace()
         # dataDumpJson = json.dumps(dataDump)
         # with open('1acloudguru-%s.json' % dataDump['awsTag'], 'w') as f:
         #     f.write("%s" % dataDumpJson)
