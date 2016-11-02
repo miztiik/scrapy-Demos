@@ -34,7 +34,6 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
     allowed_domains = [ "acloud.guru" ]
 
     def __init__(self):
-        #self.start_urls = [ "https://acloud.guru/forums/all/s3" ]
         self.start_urls = [ "http://www.google.co.in" ]
 
     def parse(self, response):
@@ -52,18 +51,21 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
         aCloudTopicUrls['vpc'] = { 'awsTag' : 'vpc' , 'sourceUrl' : 'https://acloud.guru/forums/all/vpc' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
         aCloudTopicUrls['sns'] = { 'awsTag' : 'sns' , 'sourceUrl' : 'https://acloud.guru/forums/all/sns' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
         aCloudTopicUrls['sqs'] = { 'awsTag' : 'sqs' , 'sourceUrl' : 'https://acloud.guru/forums/all/sqs' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' }
+        aCloudTopicUrls['sa-pro'] = { 'awsTag' : 'sa-pro' , 'sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-professional/all' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '30' }
 
         # Lets be nice and crawl only limited pages
         try:
-            dataDump = self.collectUrls(aCloudTopicUrls['s3'])
+            dataDump = self.collectUrls(aCloudTopicUrls['sa-pro'])
 
             self.writeToFile(dataDump)
     
             # print "\n===========Printing in mains=========\n"
             # pprint(dataDump)
         except:
-            print "Not able to get links properly"    
-
+            print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            print "            Unable to get grab links              "
+            print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                
         self.tearDownBrowser()
 
     """
@@ -134,6 +136,10 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
 
                 urlMetadata['pgCrawled'] += 1
 
+                print "\n\n\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                print "\t  All done in page : {0}, Lets go to page : {1}".format( (urlMetadata['pgCrawled'] - 1) , urlMetadata['pgCrawled'])
+                print "\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
+            
             except TimeoutException:
                 self.driver.execute_script("window.stop();")
                 print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -162,10 +168,6 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
                     print "\n\n\t\tERROR : FAILED - To click on 'Next' button to navigate to next page\n"
                     # pass
                     break
-                
-                print "\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                print "All done in this page, Lets go to page : {0}".format(urlMetadata['pgCrawled'])
-                print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
 
         # Unique the list
         urlItemsSet = set(urlItems)
@@ -174,6 +176,7 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
         urlMetadata['pgCrawled'] = str( urlMetadata['pgCrawled'] )
         urlMetadata['uri'] = list(urlItemsSet)
         urlMetadata['crawled'] = 'True'
+        urlMetadata['pageLoadWaitTime'] = pageLoadWaitTime
         return urlMetadata
 
     def writeToFile(self, dataDump):
