@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import pdb, json, os
+import pdb, json
 
+import os.path
 from datetime import datetime, date, time
 
 # Imports for virtual display
@@ -34,7 +35,9 @@ class aCloudGuru_qTextSpider(Spider):
         self.setUpBrowser()
 
         if self.srcLnksJson:
-            with open( self.srcLnksJson , 'r' ) as f:
+            inputDir = os.path.abspath( __file__ + "/../../../")
+            inputFileLoc = os.path.join( inputDir, "LnksToScrape" , self.srcLnksJson )
+            with open( inputFileLoc , 'r' ) as f:
                 uriData = json.load(f)
         else:
 
@@ -134,7 +137,7 @@ class aCloudGuru_qTextSpider(Spider):
                 # dataDump['pgCrawled'] = str( int(uriDict['pgCrawled']) + 1)
                 dataDump['pgCrawled'] = "1"
                 dataDump['crawled'] = "True"
-                dataDump['dateScraped'] = date.today().strftime("%Y-%m-%d") + "-" + datetime.now().strftime('%H-%M')
+                dataDump['dateScraped'] = date.today().strftime("%Y-%m-%d") + "-" + datetime.now().strftime('%H-%M-%S')
                 dataDump['pageLoadWaitTime'] = uriDict['pageLoadWaitTime']
     
                 print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -152,7 +155,11 @@ class aCloudGuru_qTextSpider(Spider):
         return None
 
     def writeToFile(self, dataDump):
-        with open('{0}-acloudguru-{1}-{2}.json'.format( dataDump['dateScraped'] , dataDump['awsTag'] , dataDump['Tags'][0] ), 'w') as f:
+        outputDir = os.path.abspath(__file__ + "/../../../")
+        outputFileName = '{0}-acloudguru-{1}.json'.format( dataDump['dateScraped'] , dataDump['awsTag'] )
+        outputFileLoc = os.path.join( outputDir, "output" , outputFileName )
+
+        with open( outputFileLoc , 'w') as f:
             json.dump(dataDump, f, indent=4,sort_keys=True)
 
 
