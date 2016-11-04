@@ -53,11 +53,15 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
         aCloudTopicUrls['sns'] = { 'awsTag' : 'sns' , 'sourceUrl' : 'https://acloud.guru/forums/all/sns' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
         aCloudTopicUrls['sqs'] = { 'awsTag' : 'sqs' , 'sourceUrl' : 'https://acloud.guru/forums/all/sqs' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
         aCloudTopicUrls['sa-pro-s3'] = { 'awsTag' : 'sa-pro-s3' , 'sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-professional/s3' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '10', 'pageLoadWaitTime' : '30'  }
-        aCloudTopicUrls['sa-pro-best-practice'] = { 'awsTag' : 'sa-pro-best-practice' , 'sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-professional/best-practice' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '10', 'pageLoadWaitTime' : '15'  }
+        aCloudTopicUrls['sa-pro-vpc'] = { 'awsTag' : 'sa-pro-vpc' , 'sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-professional/vpc' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '10', 'pageLoadWaitTime' : '30'  }
+
+        aCloudTopicTags = {}
+
+        aCloudTopicTags = {"All Topics","account-management","backups","bc","best-practice","cloudformation","cloudfront","costing","data-pipeline","data-pipeline-lab","database","ddos","direct-connect","directory-services","domain-eight-wrap-up","dr","ec2","elastic-beanstalk","elb","exam","export","hpc","hsm","ids","import","introduction","ips","kinesis","memcached","migration","monitor","nat","network","network-migrations","networking","opsworks","pricing","redis","reserved-instances","resource-groups","s3","sns-mobile-push","spot-instances","storage","storage-gateway","sts","summary","tagging","thank-you-good-luck","vmware","vpc"}
 
         # Lets be nice and crawl only limited pages
         try:
-            dataDump = self.collectUrls(aCloudTopicUrls['sa-pro-s3'])
+            dataDump = self.collectUrls(aCloudTopicUrls['sa-pro-vpc'])
 
             self.writeToFile(dataDump)
     
@@ -163,9 +167,19 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
                 # hover.perform()
 
                 try:
-                    # Asynchronous execution
-                    # self.driver.execute_async_script('arguments[0].click();', nextBtn)
-                    self.driver.execute_script('arguments[0].click();', nextBtn)
+                    # Click the next button only if is active and not disabled, else break
+                    # find the parent and check if it is disabled
+                    btnClassTxt = nextBtn.find_element_by_xpath('..').get_attribute('class').encode('utf-8')
+                    
+                    if "disabled" not in btnClassTxt:
+                        # Asynchronous execution
+                        # self.driver.execute_async_script('arguments[0].click();', nextBtn)
+                        self.driver.execute_script('arguments[0].click();', nextBtn)
+                    else:
+                        print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                        print "         REACHED THE END OF THE GALAXY          "
+                        print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"      
+                        break
                 except httplib.BadStatusLine:
                     print "\n\n\t\tERROR : FAILED - To click on 'Next' button to navigate to next page\n"
                     # pass
@@ -183,7 +197,7 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
 
     def writeToFile(self, dataDump):
 
-        outputDir = os.path.abspath(__file__ + "/../../../")
+        outputDir = os.path.abspath( __file__ + "/../../../" )
         outputFileName = '{0}-acloudguru-{1}.json'.format( dataDump['dateScraped'] , dataDump['awsTag'] )
         outputFileLoc = os.path.join( outputDir, "LnksToScrape" , outputFileName )
 
