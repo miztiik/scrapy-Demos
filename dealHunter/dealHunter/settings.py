@@ -17,6 +17,7 @@ NEWSPIDER_MODULE = 'dealHunter.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'dealHunter (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
