@@ -11,8 +11,7 @@ class projectorItem(scrapy.Item):
     TimeStamp       = scrapy.Field()
 
 class bhpProjectorSpdier(scrapy.Spider):
-    # name = "bhpProjectorSpdier"
-    name = "tspidy"
+    name = "bhpProjectorSpdier"
     allowed_domains = ["bhphotovideo.com"]
     # start_urls = ( 'https://www.amazon.com/gp/search/ref=sr_nr_p_n_feature_seven_br_4?fst=as%3Aoff&rh=n%3A172282%2Cn%3A%21493964%2Cn%3A300334%2Cp_n_feature_browse-bin%3A2358237011%2Cp_n_feature_ten_browse-bin%3A11601827011%2Cp_n_feature_eleven_browse-bin%3A2057590011%2Cp_n_feature_seven_browse-bin%3A11028023011&bbn=300334&ie=UTF8&qid=1478519032&rnid=11028015011',)
     start_urls = ( 'https://www.bhphotovideo.com/c/search?atclk=Brand_Epson&ci=2116&N=4294546233+4292342915+4292342911+4291461369',)

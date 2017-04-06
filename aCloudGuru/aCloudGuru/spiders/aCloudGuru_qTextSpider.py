@@ -22,8 +22,7 @@ from selenium.common.exceptions import NoSuchElementException
 from scrapy.spiders import Spider
 
 class aCloudGuru_qTextSpider(Spider):
-    #name = "aCloudGuru_qTextSpider"
-    name = "tspidy"
+    name = "aCloudGuru_qTextSpider"
     allowed_domains = [ "acloud.guru" ]
 
     def __init__(self, srcLnksJson=None):
@@ -45,7 +44,14 @@ class aCloudGuru_qTextSpider(Spider):
             print "   Source Json file not mentioned, continuing with defaults, usage is as below"
             print "\n   scrapy crawl " + self.name + " -a srcLnksJson=<filename> "
             print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-            uriData = { 'awsTag' : 's3' ,"sourceUrl" : "https://acloud.guru/forums/all/s3", 'uri' : ['https://acloud.guru/course/aws-certified-solutions-architect-professional/discuss/-KPOrhtqq52941y0Iy6A/choose-2-answers-vpc'] ,  'crawled': 'False', 'pgCrawled' : '0' , 'pageLoadWaitTime' : '60' }
+            
+            uriData = { 'awsTag' : 'new' ,
+                        "sourceUrl" : "https://acloud.guru/forums/aws-certified-solutions-architect-associate/newest?p=1", 
+                        'uri' : ['https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgK9udGFWruTCDWVtxG/ec2_-_the_backbone_of_aws_--_e'] ,
+                        'crawled': 'False',
+                        'pgCrawled' : '0' ,
+                        'pageLoadWaitTime' : '60'
+                      }
 
 
         self.collectQueryText( uriData )
@@ -59,8 +65,9 @@ class aCloudGuru_qTextSpider(Spider):
         # Set the web browser parameters to not show gui ( aka headless )
         # Ref - https://github.com/cgoldberg/xvfbwrapper    
         
-        # self.vdisplay = Xvfb(width=1280, height=720)
-        # self.vdisplay.start()
+        # Disable below two lines to view the browser in action
+        self.vdisplay = Xvfb(width=1280, height=720)
+        self.vdisplay.start()
 
         self.driver = webdriver.Firefox()
 
@@ -80,11 +87,13 @@ class aCloudGuru_qTextSpider(Spider):
     """
     def collectQueryText(self,uriDict):
 
+        xpathDict = {}
+
         ## The XPATH ID of the element for which the the page load waits before processing other requests
-        ec_XPATH        = "//div[@class='card discussion-card']/div[@class='discussion-card-title loaded']/h2"
-        qText_XPATH     = "//div[@id='questionDetailArea']/div[@class='gu-editor-view markdown-text']/p"
-        qAnswer_XPATH   = "//div[@id='answerDetailArea']/div[@class='gu-editor-view markdown-text']"
-        qTopic_XPATH    = "//div[@class='w-full ui-select-container ui-select-multiple ui-select-bootstrap dropdown form-control ng-valid']/div/span[@class='ui-select-match']/span"
+        xpathDict['pgLoadConfirmElement']   = "//div[@class='discussion-card']/div[@class='discussion-card-title clearfix loaded']/h2"
+        xpathDict['qText']                  = "//div[@id='questionDetailArea']/div[@class='gu-editor-view markdown-text']/p"
+        xpathDict['qAnswer']                = "//div[@id='answerDetailArea']/div[@class='gu-editor-view markdown-text']"
+        xpathDict['qTopic']                 = "//span[@class='ui-select-match']/span/span[@class='ui-select-match-item btn btn-default btn-xs']/span/span"
      
 
         self.driver.set_page_load_timeout( int(uriDict['pageLoadWaitTime']) )
@@ -99,32 +108,30 @@ class aCloudGuru_qTextSpider(Spider):
             # time.sleep( int( uriDict['pageLoadWaitTime']) )
     
             try:
-                #pdb.set_trace()
                 self.driver.get( lnk )
 
-                # pdb.set_trace()
-                # element_present_check_1 = WebDriverWait(self.driver, uriDict['pageLoadWaitTime']).until(EC.presence_of_all_elements_located((By.XPATH, ec_XPATH)))
-                element_present_check_1 = WebDriverWait(self.driver, int(uriDict['pageLoadWaitTime'])).until(EC.presence_of_element_located((By.XPATH, ec_XPATH)))
-                qTexts = self.driver.find_elements_by_xpath(qText_XPATH)
-                qAnswers = self.driver.find_elements_by_xpath(qAnswer_XPATH)
-                qTopics = self.driver.find_elements_by_xpath(qTopic_XPATH)
+                element_present_check_1 = WebDriverWait( self.driver, int( uriDict['pageLoadWaitTime'] ) ).until( EC.presence_of_element_located( ( By.XPATH, xpathDict['pgLoadConfirmElement'] ) ) )
+                qTexts      = self.driver.find_elements_by_xpath( xpathDict['qText']  )
+                qAnswers    = self.driver.find_elements_by_xpath( xpathDict['qAnswer'])
+                qTopics     = self.driver.find_elements_by_xpath( xpathDict['qTopic'] )
     
-                
+                # Collect the Question Text
                 questionTxt = []
                 for para in qTexts:
                     questionTxt.append( para.text )
                 dataDump['Question'] = questionTxt
                 
+                # Collect the answers
                 allAnswers = {}
-    
                 for ansIndex, ans in enumerate(qAnswers, 1):
                     answerTxt = []
-                    ansPara = ans.find_elements_by_xpath('.//p')
+                    ansPara = ans.find_elements_by_xpath( './/p' )
                     for para in ansPara:
                         answerTxt.append( para.text )
                     allAnswers['usr-{0}'.format(ansIndex)] = answerTxt
                 dataDump['Answers'] = allAnswers
     
+                # Collect if any tags are there
                 questionTags = []
                 for qTag in qTopics:
                     # print qTag.get_attribute('innerHTML')
@@ -137,7 +144,8 @@ class aCloudGuru_qTextSpider(Spider):
                 # dataDump['pgCrawled'] = str( int(uriDict['pgCrawled']) + 1)
                 dataDump['pgCrawled'] = "1"
                 dataDump['crawled'] = "True"
-                dataDump['dateScraped'] = date.today().strftime("%Y-%m-%d") + "-" + datetime.now().strftime('%H-%M-%S')
+                # dataDump['dateScraped'] = date.today().strftime("%Y-%m-%d") + "-" + datetime.now().strftime('%H-%M')
+                dataDump['dateScraped'] = date.today().strftime("%Y-%m-%d")
                 dataDump['pageLoadWaitTime'] = uriDict['pageLoadWaitTime']
     
                 print "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -159,7 +167,7 @@ class aCloudGuru_qTextSpider(Spider):
         outputFileName = '{0}-acloudguru-{1}.json'.format( dataDump['dateScraped'] , dataDump['awsTag'] )
         outputFileLoc = os.path.join( outputDir, "output" , outputFileName )
 
-        with open( outputFileLoc , 'w') as f:
+        with open( outputFileLoc , 'a') as f:
             json.dump(dataDump, f, indent=4,sort_keys=True)
 
 

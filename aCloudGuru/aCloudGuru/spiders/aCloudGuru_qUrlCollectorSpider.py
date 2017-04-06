@@ -45,23 +45,12 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
 
         aCloudTopicUrls = {}
 
-        aCloudTopicUrls['s3']  = { 'awsTag' : 's3' ,  'sourceUrl' : 'https://acloud.guru/forums/all/s3' , 'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
-        aCloudTopicUrls['rds'] = { 'awsTag' : 'rds' , 'sourceUrl' : 'https://acloud.guru/forums/all/rds' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
-        aCloudTopicUrls['elb'] = { 'awsTag' : 'elb' , 'sourceUrl' : 'https://acloud.guru/forums/all/elb' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
-        aCloudTopicUrls['ec2'] = { 'awsTag' : 'ec2' , 'sourceUrl' : 'https://acloud.guru/forums/all/ec2' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
-        aCloudTopicUrls['vpc'] = { 'awsTag' : 'vpc' , 'sourceUrl' : 'https://acloud.guru/forums/all/vpc' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
-        aCloudTopicUrls['sns'] = { 'awsTag' : 'sns' , 'sourceUrl' : 'https://acloud.guru/forums/all/sns' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
-        aCloudTopicUrls['sqs'] = { 'awsTag' : 'sqs' , 'sourceUrl' : 'https://acloud.guru/forums/all/sqs' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '5' , 'pageLoadWaitTime' : '60'  }
-        aCloudTopicUrls['sa-pro-s3'] = { 'awsTag' : 'sa-pro-s3' , 'sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-professional/s3' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '10', 'pageLoadWaitTime' : '30'  }
-        aCloudTopicUrls['sa-pro-vpc'] = { 'awsTag' : 'sa-pro-vpc' , 'sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-professional/vpc' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '10', 'pageLoadWaitTime' : '30'  }
-
-        aCloudTopicTags = {}
-
-        aCloudTopicTags = {"All Topics","account-management","backups","bc","best-practice","cloudformation","cloudfront","costing","data-pipeline","data-pipeline-lab","database","ddos","direct-connect","directory-services","domain-eight-wrap-up","dr","ec2","elastic-beanstalk","elb","exam","export","hpc","hsm","ids","import","introduction","ips","kinesis","memcached","migration","monitor","nat","network","network-migrations","networking","opsworks","pricing","redis","reserved-instances","resource-groups","s3","sns-mobile-push","spot-instances","storage","storage-gateway","sts","summary","tagging","thank-you-good-luck","vmware","vpc"}
+        aCloudTopicUrls['sa-pro-s3']    = { 'awsTag' : 'sa-pro-s3' ,'sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-professional/s3' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '10', 'pageLoadWaitTime' : '30'  }
+        aCloudTopicUrls['sa-pro-new']   = { 'awsTag' : 'sa-pro-new','sourceUrl' : 'https://acloud.guru/forums/aws-certified-solutions-architect-associate/newest?p=1' ,'crawled': 'False', 'pgCrawled' : 0, 'crawlPgLimit' : '10', 'pageLoadWaitTime' : '25'  }
 
         # Lets be nice and crawl only limited pages
         try:
-            dataDump = self.collectUrls(aCloudTopicUrls['sa-pro-vpc'])
+            dataDump = self.collectUrls( aCloudTopicUrls['sa-pro-new'] )
 
             self.writeToFile(dataDump)
     
@@ -105,11 +94,15 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
 
         # The XPATH Location identifiers to make it configurable
 
+        xpathDict = {}
+
         ## The XPATH ID of the element for which the the page load waits before processing other requests
-        ec_XPATH        = "//div/div[@class='discussion-list-entry-body']/div[@class='secondary-row']/a/span"
-        qText_XPATH     = "//div[@class='discussion-list-entry-body']"
-        qURL_XPATH      = ".//a[@class='discussion-list-entry-title text-accent placeholder']"
-        qPopular_XPATH  = "//ul[@class='nav nav-tabs']/li[@heading='Most Popular']/a"
+        xpathDict['pgLoadConfirmElement']   = "//div[@class='col-sm-8 forum-room-thread-list']/thread-list-component/thread-list-item-component/div[@class='thread-list-item']/@href"
+        xpathDict['qPopular']               = "//ul[@class='nav nav-tabs']/li[@heading='Popular']/a"
+        xpathDict['qNewest']                = "//ul[@class='nav nav-tabs']/li[@heading='New']/a"
+        xpathDict['qText']                  = "//div[@class='col-sm-8 forum-room-thread-list']/thread-list-component/thread-list-item-component"
+        xpathDict['qURL']                   = ".//div[@class='thread-list-item']"
+
         # nxtPageBtn_XPATH = "//div[@class='clearfix p']/li[@class='paginate_button next']/a"
 
         # The time to wait for the webpage to laod in seconds
@@ -120,25 +113,30 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
         
         for crawlCount in range(int(urlMetadata['crawlPgLimit'])):
             try:
+
                 # Check if the page has the necessary elements before we start scraping
-                element_present_check_1 = WebDriverWait(self.driver, pgWtTime).until(EC.presence_of_all_elements_located((By.XPATH, ec_XPATH)))
+                element_present_check_1 = WebDriverWait(self.driver, pgWtTime).until(EC.presence_of_all_elements_located((By.XPATH, xpathDict['pgLoadConfirmElement'] )))
                 # element_present_check_2 = WebDriverWait(self.driver, pgWtTime).until(EC.text_to_be_present_in_element_value((By.XPATH, ec_XPATH), "ago"))
                 
                 # Move to the most popular questions Tab
-                qPopularBtn = self.driver.find_element_by_xpath(qPopular_XPATH)
-                self.driver.execute_script('arguments[0].click();', qPopularBtn)
+                # btnToClick = self.driver.find_element_by_xpath( xpathDict['qPopular'] )
+
+                # Move to the New questions Tab
+                btnToClick = self.driver.find_element_by_xpath( xpathDict['qNewest'] )
+
+                self.driver.execute_script('arguments[0].click();', btnToClick)
 
                 time.sleep( pgWtTime )
 
                 # Find all the question div tags and iterate in for loop for the link reference
-                qText_divs = self.driver.find_elements_by_xpath(qText_XPATH)
+                qTextItems = self.driver.find_elements_by_xpath( xpathDict['qText'] )
         
-                for qText in qText_divs:
+                for qText in qTextItems:
                     
-                    qUrlList = qText.find_elements_by_xpath(qURL_XPATH)
+                    qUrlList = qText.find_elements_by_xpath( xpathDict['qURL'] )
         
                     for qUrl in qUrlList:
-                        urlItems.append(qUrl.get_attribute('href'))
+                        urlItems.append( "https://acloud.guru" + qUrl.get_attribute('href') )
 
                 urlMetadata['pgCrawled'] += 1
 
@@ -192,7 +190,7 @@ class aCloudGuru_qUrlCollectorSpider(Spider):
         urlMetadata['pgCrawled'] = str( urlMetadata['pgCrawled'] )
         urlMetadata['uri'] = list(urlItemsSet)
         urlMetadata['crawled'] = 'True'
-        urlMetadata['dateScraped'] = date.today().strftime("%Y-%m-%d") + "-" + datetime.now().strftime('%H-%M-%S')
+        urlMetadata['dateScraped'] = date.today().strftime("%Y-%m-%d") + "-" + datetime.now().strftime('%H-%M')
         return urlMetadata
 
     def writeToFile(self, dataDump):

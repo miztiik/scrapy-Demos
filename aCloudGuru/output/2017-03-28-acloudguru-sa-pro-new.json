@@ -1,0 +1,1615 @@
+[{
+    "Answers": {}, 
+    "Question": [
+        "I passed both the SA Extended and the Developer course today, both with an 85%. Both courses were great for preparing. Would definitely recommended following along with the examples and doing them yourself, and at least doing a quick read of the the White Papers linked. Very happy with the course and some of the questions on the test were almost exactly the questions in the various exams in the course.", "By taking both exams in the same day you really see the overlap. About 10-15 questions were either exactly the same or extremely similar between the 2 tests, which is either good or bad depending on if you remember those questions :). I took the complete Developer course and only needed to do 50% of this course because of the overlap.", "For the extended exam it seems they added questions on Kinesis, ECS (containers), Lambda (2-3 questions), EMR (in the context of being able to control the EC2 instance it creates). Not sure what else was on there that isn't on the non-extended.", "Thank you Ryan and the A Cloud Guru team!"
+    ], 
+    "Tags": [], 
+    "Title": "passed_sa_extended_with_85%25", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfwniiG7DxmkURFFkxI/passed_sa_extended_with_85%25"
+},
+{    "Answers": {
+        "usr-1": [
+            "Hello Sergio,",     "Not only are the physical servers different , but the physical data center that they will be in will probably be different.",     "Remember that the AZ name is just a tag, not a location.",     "Have a read of the link provided.",     "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html",     "Rusty"
+        ]
+    }, 
+    "Question": [
+        "There is a question I don't understand:", "Your three AWS accounts (A, B and C) share data. In an attempt to maximize performance between the accounts, you place all the instances for these accounts in 'eu-west-1b'. During testing, you find almost no transfer latency between accounts A and B, but significant latency between accounts B and C, and accounts C and A. Which of the following possibilities is the most likely source of the problem?", "1) The names of the AZs are randomly applied, so 'eu-west-1b' is not the same location for all three accounts.", "2)You have incorrectly configured the cross account authentication policies in account C adding latency to those instances.", "3) Account C has been allocated to an older section of the Data Hall with slower networking.", "4) The instances for account C are on an overloaded Host. Stop all the Account C instances and then start them together so that they run an a new host.", "And the correct answer is 1) the explanation is : \"The Availability Zone names presented are unique per account and do not represent a specific set of physical resources.\"  ", "I don't understand the thing about the names of the AZs.  Maybe it's just weird for me. But what I can understand is that even if I choose the same AZ for all the accounts, the physical servers where the instances run, cannot be the same."
+    ], 
+    "Tags": [
+        "exam", "practice-exam"
+    ], 
+    "Title": "weird_question_in_the_certifie", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg1k6CRsTau7lgqQ2RZ/weird_question_in_the_certifie"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I just went through the course, and I don't think it was specified that it simply refers to system-local storage (e.g. SATA) rather than EBS, which is SAN-based. Also helps clarify why you lose everything if you stop/start, because you've left your disk behind."
+    ], 
+    "Tags": [
+        "ec2", "ec2-ami"
+    ], 
+    "Title": "suggestion%3A_provide_more_expla", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg6a7a1VOy8K8i3mtA2/suggestion%3A_provide_more_expla"
+},
+{
+    "Answers": {
+        "usr-1": [], "usr-2": []
+    }, 
+    "Question": [
+        "Question 10 talks about setting up a new Administrator account and preparing a user name, access key ID, secret access key and generated password. The question indicates that the new user can now log in, but cannot interact with any AWS services and asks what the next step should be.", "Since this user is being granted Administrator access, the NEXT step should be to require MFA.", "THEN you should be comfortable granting Admin access.  Otherwise you're opening a potential hole in your security.", "I consider this poor wording of the question."
+    ], 
+    "Tags": [
+        "iam-quiz"
+    ], 
+    "Title": "question_10._mfa_should_be_req", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfs2RGoatMwmevj9wnR/question_10._mfa_should_be_req"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "They say it's billed per hour for every 10 units for write, and 50 units for read. So then wouldn't it be a minimum of $9.67 per month (minimum $4.84/month for 10 write capacity per hour + minimum $4.84/month 50 read capacity per hour)?"
+    ], 
+    "Tags": [
+        "databases", "dynamo-db"
+    ], 
+    "Title": "minimum_%249.67_per_month_for_dy", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgIOVJ7ddag6T0oyKO9/minimum_%249.67_per_month_for_dy"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "For the first health check he correctly selected the URL for the first ELB but for the second health check instead of selecting the second ELB why did he write the complete website (hellocloudgurus.com) ? Secondly, this option of doing a health check existed for other routing policies as well, what's the use of the healthchecks in other routing policies (lets say, simple) ? As a trainer all cases should have been considered."
+    ], 
+    "Tags": [
+        "route53", "route53-lab"
+    ], 
+    "Title": "why_hellocloudgurus.com_for_th", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg7o-Ohx-IHj-U4iuhn/why_hellocloudgurus.com_for_th"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Fyi: You can encrypt a snapshot and restore that instead of creating a new instance that is encrypted and load data into it, which is much slower"
+    ], 
+    "Tags": [
+        "databases", "rds-read-replicas", "rds-backups", "rds-multi-az"
+    ], 
+    "Title": "make_an_instance_encrypted", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfsYAmpDLtp2OK8K-7c/make_an_instance_encrypted"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hi there,", "I did these courses about a year back and I can remember there was an example where a twitter API endpoint was used with a Kinesis shard object created in (I believe) Python and all tweets globally were printed out in realtime to a web page running a javascript app. You could slow it down to just see a small fraction of the tweets using a scroller. I'm almost certain Ryan provided a link to it, but I can't find it back. Does anyone remember where this example was? Or maybe someone has the code up on their github?", "Links to any and all python/boto3 learning resources would be much appreciated.", "Cheers, Arthur"
+    ], 
+    "Tags": [
+        "kinesis", "python", "boto3"
+    ], 
+    "Title": "trying_to_locate_an_existing_k", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg8WwBlCYGNKaOg4ViP/trying_to_locate_an_existing_k"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "typeo please check the question"
+    ], 
+    "Tags": [
+        "app-services-quiz"
+    ], 
+    "Title": "typeo_in_question", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgHE5Sm7d02ozMZjn1B/typeo_in_question"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "In EC2 you can always add a storage while an instance is running. My doubt is can we have the different type of storage assign to the same EC2 instance?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "ec2_boot_volume", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg0RzUVp_n8F_92usYm/ec2_boot_volume"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "Yes Whizlabs would help along with all practise questions you can search on internet. Try to do everything."
+        ]
+    }, 
+    "Question": [
+        "Hello everyone. I really want to thanks Ryan that his udemy sessions are amazing", "I too the exam today, unfortunately, did not pass it. However, I was really happy coming out from the exam center because my percentage marks were lot higher than the previous one which was 23% in Jan 2017 and today it was,", "Overall Score: 47%", "Topic Level Scoring:", "1.0 Designing highly available, cost efficient, fault tolerant, scalable systems : 54%", "2.0 Implementation/Deployment: 50%", "3.0 Security: 18%", "4.0 Troubleshooting: 60%", "I am very confident that when I take an exam next time, I will make it for sure.", "Could someone please throw any suggestions or feedback that would help me pass the exam?", "Should I now go thru Whizlab practice tests to increase my chances next time?"
+    ], 
+    "Tags": [
+        "exam"
+    ], 
+    "Title": "i_am_making_progress_towards_p", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg6rWndKatmG11MrR0d/i_am_making_progress_towards_p"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Thanks acloud guru for the help to build a strong foundation towards cloud system.", "I am from Oracle DBA background and had 0 knowledge on cloud but passed the first cloud certification exam with 92%.", "Next goal is Developer, so anyone has passed the developer exam please suggest your way of preparation, the area need to focus more and is buying whizlab will give benefit or not ?", "Thanks"
+    ], 
+    "Tags": [], 
+    "Title": "passed_csa_exam_with_92%25", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfxUH6kqehJccJWW8hA/passed_csa_exam_with_92%25"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "When you created the AMI from the encrypted snapshot you have selected the virtualization type of the instance as Paravirtual (sets by default). So the problem here is that the no Paravirtual instances in the Mumbai region to launch your AMI. ",     "Choose a region like N.Virginia where PV instances are available. Or try this, while creating the AMI from the snapshot set the virtualization type as Hardware-assisted virtualization.",     "Here's a link to understand differences between PV and HVM :- http://cloudacademy.com/blog/aws-ami-hvm-vs-pv-paravirtual-amazon/"
+        ]
+    }, 
+    "Question": [
+        "1. launched a t2.micro Windows instance in Mumbai.", "2. Stopped and took snapshot of image.", "3. Copied the snapshot to the same Mumbai region and used the \"encrypt\" option.", "4. Created image of the encrypted snapshot which shows in AMI tab.", "5. selected the AMI and clicked \"launch\", when doing so, it shows \"No valid instance types found.\" in the \"Choose an Instance Type\" tab.", "How is it possible that the image created from the snapshot of an image from the same region can not find a valid instance ?"
+    ], 
+    "Tags": [
+        "ec2", "ec2-ami"
+    ], 
+    "Title": "can't_launch_instance", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfzBDEs0ef2AOgusavR/can't_launch_instance"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "  Let's say I am using a free tier account ( 50 GB ) , if I uploud files of 49,9GB , I turn on versioning , then I delete ,let's say 10GB and I upload again more files ( 10 GB max.) .  ", "    I will pay extra ? I will be able to store more data , by deleting other files and retriving old ones."
+    ], 
+    "Tags": [
+        "s3", "s3-version-control"
+    ], 
+    "Title": "deleting_and_restoring_using_v", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg8TL8ysJvX4k9atFc4/deleting_and_restoring_using_v"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "The following practice exam question references NAT Gateway, though it should be referencing a NAT Instance. As per AWS doco, a NAT Gateway is not something which you can specify instance size, and automatically handles up to 10Gbps or traffic.", "http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html", "You work for a large software company in Seattle. They have their production environment provisioned on AWS inside a custom VPC. The VPC contains both a public and private subnet. The company tests their applications on custom EC2 instances inside a private subnet. Three are approximately 500 instances, and they communicate to the outside world via a proxy server. At 3am every night, the EC2 instances pull down OS updates, which are usually 150MB or so. They then apply these updates and reboot: if the software has not downloaded within half an hour, then the update will attempt to download the following day. You notice that a number of EC2 instances are continually failing to download the updates in the allotted time. Which two of the following answers might explain this failure?", "Network throughput is the obvious bottleneck. You are not told in this question whether the proxy server is in a public or private subnet, so if it is in a public subnet, the the proxy server instance size itself is not large enough to cope with the current network throughput. If the proxy server is in a private subnet, then it must be using a NAT gateway in which to communicate out to the internet. This NAT gateway may also be inadequately provisioned in terms of size. You should therefore increase the size of both the proxy server and the NAT gateway."
+    ], 
+    "Tags": [], 
+    "Title": "incorrect_question_on_practice", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgImqjQL1rpMW1j2ea7/incorrect_question_on_practice"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I followed the process of creating a cloudfront CDN to access the file from a S3 bucket as per the videos. My cloudfront url was getting redirected to the S3 bucket url. Then I went through some discussions. As per one of the discussions, I went through the whole process once again of creating a cloudfront web distribution but still my cloudfront url is redirected to s3 bucket url. Can someone help me out with this ? ", "Also I did this entire setup in normal as well as incognito browser mode, but still the same."
+    ], 
+    "Tags": [], 
+    "Title": "cloudfront_url_getting_redirec", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg-zI8VRq3nnZhZhnYE/cloudfront_url_getting_redirec"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Firstly", "Many thanks to the team for the work they did to synthesize all the information in a format and a structure that's far easier to assimilate for most people than the official documentation.", "My Journey", "I took the extended exam.", "I got a few questions about (or related to) the newer technologies: Containers, Lambda, Kinesis.", "The rest of the questions are about the usual suspects: popular/foundational services, networking, and design principles.", "I believe a background in IT will help in many obvious and not-so-obvious ways, and what jumps to mind now are: networking, Linux/Windows, security.", "What I used: The Certified Solutions Architect - Associate 2017 course here at ACG, and AWS CSAA Practice Tests from Whizlabs. ", "My Personal Conclusion", "I studied too much overall, especially with my IT background of several years, spanning Linux, Windows, and Networking. I could've studied smarter, emphasizing the AWS-specific technologies, which is an area I wasn't familiar with.", "The exam was easier than the final quizzes in the course, but very close to the Practice Tests from Whizlabs. Had I known that I would've just watched the videos twice, and then read the official documentation about key AWS technologies, which I need to do anyway if I'm actualy going to be working with AWS.", "That's my perspective and conclusion though, use your judgment when you approach this exam.", "Closing", "Lots of Grace to those who follow, and much Gratitude to those who went before."
+    ], 
+    "Tags": [
+        "exam", "course-overview", "exam-tips"
+    ], 
+    "Title": "passed_the_certified_solutions", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg-rtHo-EOggZOWwqu-/passed_the_certified_solutions"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I managed to mount one EFS volume to multiple EC2 instances. Can somebody help me with the command to check what are the ec2 instances attached to the EFS volume?"
+    ], 
+    "Tags": [
+        "ec2", "efs"
+    ], 
+    "Title": "efs_command_to_know_what_ec2_i", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg7QVuR3ZSIYl9yZzAp/efs_command_to_know_what_ec2_i"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "When we configure ELB for instances, it determines what traffic is allowed in and out of that instance. When the same is applied to ELB does it mean the same or something eles because in the ELB setting itself we specify whether its going to spread HTTP traffic etc. Whats the difference between the 2 ?"
+    ], 
+    "Tags": [
+        "ec2", "ec2-elb"
+    ], 
+    "Title": "security_groups_in_elastic_loa", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfzm-xidXE1sZQMQpH_/security_groups_in_elastic_loa"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "Does ELB only be able to be used to balance the internet requests (in a round robin fashion)?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "does_elb_can_only_balance_the", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfvY3lneNcVSusBgE-H/does_elb_can_only_balance_the"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "For RDS Multi-AZ deployment, failed AZ data is recorvered by another AZ when AZ is recorvered. But, EC2 instace is not by default because that is based on AZ. So data would not be automatically recorvered.",     "Taker"
+        ]
+    }, 
+    "Question": [
+        "  Sorry but I didn't understood propertly : If an availabilty zone is damaged/destroyed what happens with the data from it? That data was uploaded too , to a different availabilty zone , even to a different Regien ?    I ask this because I am thinking it is very easy to do harm the informations.", "  Thank you."
+    ], 
+    "Tags": [
+        "infrastructure"
+    ], 
+    "Title": "if_an_availabilty_zone_is_dama", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg4hGCriMJplx2465SI/if_an_availabilty_zone_is_dama"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hi, Could you please revisit the video which has direct S3 access twice and causing confusion between accessing the file with S3 and Cloudfront  ? Please clarify . Thanks."
+    ], 
+    "Tags": [
+        "s3", "cloudfront"
+    ], 
+    "Title": "confusion_on_accessing_files_f", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfvzngyJbHQktI5isb5/confusion_on_accessing_files_f"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I passed the AWS CSA - Associate exam yesterday. A big thanks to Ryan for his course and easy explanation. Looking forward to doing more of his courses! ", "Here is what I used to prepare and pass with 81%.", "Overall, a great exam to pass and many thanks to Ryan again! On to Developer Associate now!", "Good Luck to all!"
+    ], 
+    "Tags": [
+        "exam", "practice-exam", "exam-tips"
+    ], 
+    "Title": "passed_the_exam!", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfvrUd7E-5DES0918l3/passed_the_exam!"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I saw that they have the CSA Extended exam for half the price.", "Anybody tried the extended format, any feedback on extended vs. normal test?"
+    ], 
+    "Tags": [], 
+    "Title": "any_feedback_on_aws_csa_-_asso", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfvqagIlneVm9NUC-GY/any_feedback_on_aws_csa_-_asso"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Couple issues:", "1. Spelling error \"View questionss about this lesson\"", "2. If you select the questions or resources icon, and then select Lessons (top), you can't get back to the questions/resources section without restarting the lesson or refreshing the entire page."
+    ], 
+    "Tags": [
+        "course-overview"
+    ], 
+    "Title": "interface_issues", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgGtfeFtpnG7wMhMGTI/interface_issues"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "When adding rules to rds-securitygroup. You had choosen web-dmz. Does web-dmz has port 80 and port 22. Does it mean that rds-securitygroup also open to port 80 and 22?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "rds-securitygroup_source", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfqUYUk-iyQAabkANCv/rds-securitygroup_source"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "Here is the answer...",     "http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPCSubnets.html#VPCSizing"
+        ], "usr-2": [
+            "Oh!  I wasn't counting .0 or the broadcast address.  They're not technically 'reserved'... They are never available as actual IP addresses (in a normal subnet)... sigh..."
+        ]
+    }, 
+    "Question": [
+        "I'm sure in the VPC lecture it was stated that AWS reserves the first 3 IP addresses in each subnet, rather than the first 4 and the last.  At least that is what I have written down in my notes"
+    ], 
+    "Tags": [
+        "mini-exam"
+    ], 
+    "Title": "4_reserved_ip_addresses__or_3", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgD2ouYH9vVJj0LQHRI/4_reserved_ip_addresses__or_3"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "How do put two different objects within one object title?"
+    ], 
+    "Tags": [], 
+    "Title": "versioning", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgIOKTg3qp8Vkw60q7W/versioning"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I'm Arka, I've recently deployed a WordPress website in AWS but the EC2 keeps on crashing after I log into the WordPress login page and try to make changes . How do I resolve this issue with CloudWatch?"
+    ], 
+    "Tags": [
+        "ec2", "ec2-cloudwatch"
+    ], 
+    "Title": "error_503%2Cec2_instance_failing", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfu2m-2LxBIR5aGugxW/error_503%2Cec2_instance_failing"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "Hi Andy,",     "Maybe they are asking infrastructure architect and platform architect. But terms are not so important. The important is what they expect. It is very common that each tells same words but scope and coverage is different, and this is common cause of conflict.",     "For example, the word 'Platform' is inclined to make misunderstanding. There are so many things called platform including web, Application, Database, data integration, even AWS is called 'comprenshensive platform'. The problem is that platform can cover everything so that can lead the situation that nobody takes care of that. It is very common that neither infrastruture nor application team does not take care of that because that is 'platform'.",     "So, I believe first thing is to ask them their expection and coverage based on component and stack, them make it clear what your responsibility is or NOT. Otherwise, they would make you cover everything under the word of 'technical', 'application'.",     "Taker"
+        ]
+    }, 
+    "Question": [
+        "Happy to say I recently cleared the Solution Architect Assc. I can say, Acloud Guru  videos made a big difference for me. Please go through every detail of the video and follow the labs to ensure a smooth pass.", "After getting certified I was already approached by a staffing firm but they are asking Technical Architect or Application architect.  Can someone explain the industry understanding of these roles and the actual responsibilities of the same in the context of AWS. Which specific capabilities of AWS are taken care by these roles. A bit of real world walk through would really help. Thank you.", "-Andy"
+    ], 
+    "Tags": [], 
+    "Title": "technical_architect_vs_applica", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfz_GSm1j2-hGngctSW/technical_architect_vs_applica"
+},
+{
+    "Answers": {
+        "usr-1": [], "usr-2": [], "usr-3": []
+    }, 
+    "Question": [
+        "Is safe to considere that information copied into S3 is replicated to other AZ inside the same region? Or is just copied within the same AZ to multiple devices. This is what I find in the FAQ for S3: ", "\"You specify a region when you create your Amazon S3 bucket. Within that region, your objects are redundantly stored on multiple devices across multiple facilities.\"", "Doing practice exams I have seen this question both ways. So I'm not sure if is replicated within the region or only the AZ.", "Thanks."
+    ], 
+    "Tags": [
+        "exam", "s3"
+    ], 
+    "Title": "s3_redundancy_and_replication", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgGfYnOMqtRwVzsgpUz/s3_redundancy_and_replication"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "What order should we stop, terminate, and delete everything.  If I delete my CloudFront, then I won't have access to items through CLI or should I be able to clean up entirely from the console? Thanks."
+    ], 
+    "Tags": [
+        "ec2", "wordpress"
+    ], 
+    "Title": "clean_up_after_creating_the_fa", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgHJ2GBtVbDUKV72t48/clean_up_after_creating_the_fa"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "If you don't answer my questions? Where can I get an answer? Can I put my question to some where in the amazon website for an answer?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "where_to_get_the_answer", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfvfuPJiVrAv9nS_BML/where_to_get_the_answer"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Also, I happen to notice a bug while reviewing quizzes and exams after they are completed - Some part of the questions and choices are getting appended/garbled to previous/next questions. Not sure if it's happening only with me - People, please let me know if this is the case. I am using chrome.", "Please don't let all the hardwork put in by Ryan down because of poor site maintenance. ", "Also I suggest an improved quiz/test interface with the ability to mark up a question for review and also not reveal the answers immediately till all the questions are attempted..."
+    ], 
+    "Tags": [], 
+    "Title": "site_is_extremely_slow%2C_bugs_w", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgIfwG500LF9nLwhvf1/site_is_extremely_slow%2C_bugs_w"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "i am not able to pull the SSH directory form terminal.", "i ran the ssh-keygen also where would i find the username if i am using my public ip address?"
+    ], 
+    "Tags": [], 
+    "Title": "question_about_the_terminal_po", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg2E6VT1lQ5iqnpDMmv/question_about_the_terminal_po"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hello,", "I am preparing for CSA-A Extended Exam. There will be 100 questions and 170 minutes. Just want to know what will be difference between the general CSA-A and CSA-A Extended? This course I am taking CSA-A, where all preparation covered taking into consideration of 60 Questions and 80 minutes. So What additional preparation required for taking in Extended Exam? Can any one help who already appeared for this CSA-A extended exam?", "Thank you in advance.", "Bharat"
+    ], 
+    "Tags": [
+        "exam"
+    ], 
+    "Title": "what_additional_preparation_re", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg1jyhX0aKrBf-UcDQb/what_additional_preparation_re"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Thanks Ryan and team for the course material. I have no prior experience with AWS, my primary source of training was your course. I have also read the FAQ's and White papers (as specified in the Exam Blueprint). ", "Here are my steps towards achieving my goal. ", "1. Did the AWS CSAA course on udemy by ryan. Practiced what was taught on the console during the course. Did all the quizzes except the final one.", "2. Went through the white papers and FAQ's and then did the final practice quiz. At this point i got 45 out of 60.", "3.Re-did the FAQ's and white papers, did a lot of free quizzes on Cloud Academy (free trail) , re did the final quiz and got 53 correct out of 60.", "4. Did practice tests on Whizlabs, after the first attempt re-read the FAQ's and summary of each topic from ryan's course and re-did the tests on whizlabs.", "5 Re-did the course on udemy(speed at 2x) a couple of times, did the associate practice tests course on udemy(by ryan).", "When i got close to 80 % on every practice test i was doing, i got the confidence to go for the test. Scheduled the test for today a couple of days back and here i am happily certified.", "Tips: Do the course by ryan, this will give a very strong foundation. Do as many practice tests as possible. If you fail, re-do everything from scratch and aim to do better. Once you get closer to 80 or 90, i think its the time to go for the test.", "Ant BTW, my prep started on the 16th of Feb and i gave my test today - March 26. I had a couple of weeks of no study time, so i would say a good one month of prep time.", "Good Luck and Thank you Ryan. You are the best!!!!!!!  :-))))))))"
+    ], 
+    "Tags": [
+        "exam"
+    ], 
+    "Title": "passed_csa_associate_exam_with", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgBoXM_IRgi_zLpp_Lo/passed_csa_associate_exam_with"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Why should I make the object public?"
+    ], 
+    "Tags": [
+        "s3", "s3-buckets"
+    ], 
+    "Title": "object_permissions", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfw6zUtqhdBpPq3QN8g/object_permissions"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Is partial credit given, or is it all or nothing.  For instance if a question says select 3 correct statements out of 5 statements, and I select 2 correctly, will I get any credit for that question, or 0?", "Thanks"
+    ], 
+    "Tags": [
+        "mini-exam"
+    ], 
+    "Title": "actual_exam%3A_how_are_multi-ans", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgFHyVRjegZU523VTkG/actual_exam%3A_how_are_multi-ans"
+},
+{
+    "Answers": {
+        "usr-1": [], "usr-2": [], "usr-3": []
+    }, 
+    "Question": [
+        "Ryan mentions in his lecture that source/destination check needs to be disabled at NAT instance. I'm not sure I understand why this is? Someone cares to explain a bit?"
+    ], 
+    "Tags": [
+        "vpc", "vpc-nat"
+    ], 
+    "Title": "remove_source~2Fdestination_chec", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgJkKBt3cntoOFaexDl/remove_source~2Fdestination_chec"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "The AWS whitepaper lists 5 pillars.", "Security Reliability", "Performance Efficiency", "Cost Optimization", "Operational Excellence", "The ability to protect information, systems, and assets while delivering business value through risk assessments and mitigation strategies.", "The ability of a system to recover from infrastructure or service failures, dynamically acquire computing resources to meet demand, and mitigate disruptions such as misconfigurations or transient network issues.", "The ability to use computing resources efficiently to meet system requirements, and to maintain that efficiency as demand changes and technologies evolve.", "The ability to avoid or eliminate unneeded cost or suboptimal resources.", "The ability to run and monitor systems to deliver business value and to continually improve supporting processes and procedures."
+    ], 
+    "Tags": [
+        "white-papers", "summary", "well-architected-framework"
+    ], 
+    "Title": "will_this_section_be_updated_s", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgAgOvhW8-s5c0O7OAY/will_this_section_be_updated_s"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "The video showed across 2 regions, but I am not sure if this works for 3 or more."
+    ], 
+    "Tags": [], 
+    "Title": "can_you_cross_region_replicate", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfqdYdDHaUSj5D3cdqy/can_you_cross_region_replicate"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hi, Regarding EFS. When we mount a EFS volume to multiple servers at a time is this active on one server at a time or all the nodes has RW access. If this is the case, there is a possibility of Data corruption right when multiple servers write to same volume"
+    ], 
+    "Tags": [], 
+    "Title": "what_is_the_chance_of_data_cor", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgIwoLpvECa5AMqMjQV/what_is_the_chance_of_data_cor"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Especially in the VPC section."
+    ], 
+    "Tags": [
+        "vpc"
+    ], 
+    "Title": "could_you_use_the_mouse_pointe", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg-7mSQA-X9R-HGfRZV/could_you_use_the_mouse_pointe"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hi All", "I created 4 EC2 ubuntu instances.  I am trying to achieve passwordless ssh across all of them, from anyone of EC2ubuntuinstance to rest of them.", "From my local PC, I am able to connect to all 4  EC2 instances, using standard command [ ssh ubuntu@instancepublicip -i key.pem", "What I did:", "1.   In one ec2 instance, I generated ssh public/private keys [ ssh-keygen -t rsa , followed by id_rsa.pub file name & no password provided], ", "2.   append public key to ~/.ssh/authorizationkeys   [ cat >> ~/.ssh/authorizationkeys  < ~/.ssh/id_rsa.pub", "3.   copy/override in rest of 3 EC2 instance this authorization file [ ~/.ssh/authorization_keys ]", "Result : ", "Passwordless ssh is working for only one EC2-instance in which rsa keys are generated. from this instance passwordless ssh is working to all other EC2 instances but NOT at all from any other EC2-instance to rest of instances.", "Seeking your advise, please help ! how to achieve password less ssh across EC2 instances ?", "thanks !!!"
+    ], 
+    "Tags": [], 
+    "Title": "password_less_ssh_across_ec2_i", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg46MophzbJktVF6MB1/password_less_ssh_across_ec2_i"
+},
+{
+    "Answers": {
+        "usr-1": [], "usr-2": [], "usr-3": []
+    }, 
+    "Question": [
+        "Hey Ryan,", "Recently I have passed the CSA exam..so thanx a lott to you and your cloud guru team..", "Can you please tell me the roles and responsibilties for AWS cloud enginner as i will appear for the interview.."
+    ], 
+    "Tags": [], 
+    "Title": "passed_the_csa_exam..need_some", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kftf8RWUU0UAQcsCEmn/passed_the_csa_exam..need_some"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "hi,", "how can i link my Udemy purchase to a cloud guru for the Solution Architect - Associate 2017?"
+    ], 
+    "Tags": [], 
+    "Title": "link_udemy_purchase_to_acloud", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgEUaLP3uWRx6ncxxph/link_udemy_purchase_to_acloud"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "Under IAM module > IAM Quiz > 10 question about power user", "But in the video tutorial of IAM Section not discussed about power user"
+    ], 
+    "Tags": [
+        "iam-quiz"
+    ], 
+    "Title": "about_power_user", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KftfqLOIFX_C64Vokp5/about_power_user"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I did not!", "I did the training provided by Ryan and team, and I did not read all of the FAQs as he said to do. The result? I failed my first attempt at CSA. So, I went back and did EXACTLY what Ryan said, and I passed with a 85%! THANK YOU, RYAN!!! Student for life!!"
+    ], 
+    "Tags": [
+        "exam"
+    ], 
+    "Title": "did_you_do_as_ryan_said_in_tra", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgFSMgN_ZBedzSC_gdX/did_you_do_as_ryan_said_in_tra"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I am working out of the us-east-1a region.", "I created the Apache web server from scratch, updated it, added apache and checked that it worked.", "I stopped the instance and created a snapshot.  I copied the snapshot for encryption in the same region.  I created an AMI each from the encrypted and unencrypted snapshots.", "I used the AMI to create an instance in the same region, stated above.  Shows running but the status is \"Insufficient Data\".  ", "I tried this several times from different instances, snapshots, encrypted and un-encrypted.  The status is mixed but never completely up.  I have stopped the instance- no change.  I have rebooted the instance - no change", "What steps am I missing or details I need to pay attention to?"
+    ], 
+    "Tags": [
+        "ec2", "ec2-ami"
+    ], 
+    "Title": "my_instance_from_newly_created", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg83cI9sYCE5tt8yJeo/my_instance_from_newly_created"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "Yes, if you have patience for extra 30 min."
+        ], "usr-2": [
+            "Congrats...! Vikranth, do you recommend for the extended exam or the regular one...?"
+        ]
+    }, 
+    "Question": [
+        "Overall Score: 87%", "Topic Level Scoring:", "1.0 Designing highly available, cost efficient, fault tolerant, scalable systems : 87%", "2.0 Implementation/Deployment: 83%", "3.0 Security: 90%", "4.0 Troubleshooting: 80%", "This Course helped me a lot to clear the exam... Lambda, STS, EFS and API gateway , Kinesis are the new questions that i got from the extended version.", "Good Luck guys.."
+    ], 
+    "Tags": [
+        "exam"
+    ], 
+    "Title": "passed_aws_solution_architect", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg5z4Aj_SKehI4NnncM/passed_aws_solution_architect"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "After following the steps outlined in the Lesson Elastic Load Balancer I tried to launch myFirstELB-993762169.us-east-1.elb.amazonaws.com (DNS, I know AWS will not provide us with with Public IP). It does not connect. Everything else works as expected (remove healthcheck.html,,it goes OOS & comes back In-Service whne you replace it. Also the Autoscaling works to create new instances as per configuration but ELB url itself will not launch,,why??"
+    ], 
+    "Tags": [], 
+    "Title": "elb_does_not_launch", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgGpaCtcm-3shqhejwy/elb_does_not_launch"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "You work for a construction company that has their production environment in AWS. The production environment consists of 3 identical web servers that are launched from a standard Amazon linux AMI using Auto Scaling. The web servers are launched in to the same public subnet and belong to the same security group. They also sit behind the same ELB. You decide to do some testing: you launch a 4th EC2 instance into the same subnet and same security group. Annoyingly, your 4th instance does not appear to have internet connectivity. What could be the cause of this?", "1) You need to update your route table so as to provide a route out for this instance", "2) You have not assigned an elastic IP address to this instance.", "3) You have not configured a NAT in the public subnet.", "4) You have not configured a routable IP address in the host OS of the fourth instance.", "what i understood from this question at first place is that 4th instance added behind same ELB then why any instance needed an elastic IP.", "later i cross checked question again as my answer was wrong , that in question it was never mentioned that 4th instance added in same ELB. so it was independent instance got created.", "does my understanding is correct for this question or is there any other explantion for option 2 as correct?"
+    ], 
+    "Tags": [
+        "scenario-quiz"
+    ], 
+    "Title": "need_clarification_on_question", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfvOUSkTrVk71ZYRcZx/need_clarification_on_question"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hello Team", "I was working on the lab \"Using Bootstrap Scripts\" with root account and failed to load the webpage whereas when i created the user and then re done the topic i was able to load the webpage. Please help me to understand this why? I had followed the lab strictly but why it didnt worked with root account but completed when done with user acccount"
+    ], 
+    "Tags": [], 
+    "Title": "failed_to_complete_using_boots", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KftyY_PFOcWNmZDMoon/failed_to_complete_using_boots"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Thanks Ryan and the A Cloud Guru team!", "Overall Score: 90%", "Topic Level Scoring:", "1.0 Designing highly available, cost efficient, fault tolerant, scalable systems : 90%", "2.0 Implementation/Deployment: 83%", "3.0 Security: 90%", "4.0 Troubleshooting: 100%", "I've worked in IaaS, telecom and for equipment vendors for over 20 years. No direct AWS experience and no recent hands on from any operational perspective. I have a solid technology base. My current employer is becoming an AWS reseller and I wanted to get out in front of the curve by training myself. Initially, I thought training would cost $2-3K and I would have to lobby my employer to assist until I found this option. Getting the materials and guidance for this type of certification for less than $250 total is incredibly valuable!", "The content summaries mentioned in other posts are comprehensive so I won't rehash it. What did it for me was repetition on the training materials. I used the mobile course to listen to lectures in my car every morning and afternoon driving to and from work. I probably listened to the lectures 4 times over 3 months. I think I hear Ryan's voice in my sleep. By the end, I was re-listening to the summary sections to reinforce the basic content. I did all the recommended FAQ work and the Security WP. I went through the labs 2 full times and built the VPC 4 or 5 times.", "To finish my preparation, Jayendra's Blog was great. It's like a mini-faq for relevant exam topics. http://jayendrapatil.com/aws-certification-exam-cheat-sheet/", "For realistic test preparation, I would recommend http://www.whizlabs.com/aws-solutions-architect-associate/. Real test conditions and the content is spot on. $16 for 420 questions, 7 tests! Use the other exams and practice tests for repetition and as material to reinforce content knowledge but whizlabs was the closest to the real thing.", "Another thing I learned is that you need to schedule the test and put it on your calendar. This will motivate you to do the final prep work. If your hitting 85 plus on the whizlabs tests, you are ready.", "Thanks to everyone for all the great info and feedback in the forums. On to the developer course.", "Pete"
+    ], 
+    "Tags": [
+        "exam-tips", "exam-tips-student-feedback"
+    ], 
+    "Title": "passed_exam_yesterday!", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfwhpJhMxoxp9uVeUim/passed_exam_yesterday!"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I have followed the videos, but I can't get to the Internet. Obviously, I can fine from myWebServer.", "I have them both on different security groups, and on different IP subnets. I can ping myNAT on it's 10.0.1.121 address from mySQLServer fine, but a tracepath to the internet from there fails.", "mySQL Server was in myRDSSSG SG, and myNAT and myWeServer are in the WebDMZ SG. ", "My main route table has a route for 0.0.0.0/0 going to eni-18fd2570 / i-0111b77c7b7065246", "i-0111b77c7b7065246 is myNAT.", "What else can I look at to troubleshoot this?"
+    ], 
+    "Tags": [], 
+    "Title": "can't_get_to_the_internet_from", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfqceanwIdnp6hKulmA/can't_get_to_the_internet_from"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I am wondering if there is a subtitle option? as I am not a native English guy, and I found it hard to catch you"
+    ], 
+    "Tags": [
+        "course-overview"
+    ], 
+    "Title": "subtitle_option", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgAN46MWo_-BqU6-yTO/subtitle_option"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I've recently deployed a WordPress website in AWS but the EC2 keeps on crashing after I log into the WordPress login page and try to make changes . How do I resolve this issue with CloudWatch?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "ec2_resolving_with_cloudwatch", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfqlltUpsbmBL1nYEli/ec2_resolving_with_cloudwatch"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I want to revise for exam using the video slides. I am not sure whether I am asking too much here, but the slides will be really helpful if made available for download."
+    ], 
+    "Tags": [
+        "overview"
+    ], 
+    "Title": "can_we_get_the_slides_for_revi", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg03vCdX4ywLMbAjjHy/can_we_get_the_slides_for_revi"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Creating the EC2 instance fails, since the instance type requires being launched in a VPC, according to the error message.  Pasting the template was simple enough, so I'm not sure if it's a problem with something I'm doing or the template.", "The actual error:", "08:22:48 UTC-0500 CREATE_FAILED AWS::EC2::Instance Ec2Instance The specified instance type can only be used in a VPC. A subnet ID or network interface ID is required to carry out the request."
+    ], 
+    "Tags": [], 
+    "Title": "cloud_formation_fails", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg9mWLnrXH9WZpXXAkQ/cloud_formation_fails"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "It works when i build an AMI from the unencrypted snapshot but not when i use the encrypted for some reason."
+    ], 
+    "Tags": [
+        "ec2", "ec2-ami"
+    ], 
+    "Title": "i_tried_to_follow_the_lab_in_%22", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgGI-d-Mr4b04f87pUT/i_tried_to_follow_the_lab_in_%22"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Not able to play video, tried in Firefox and Chrome. Please help."
+    ], 
+    "Tags": [
+        "course-overview"
+    ], 
+    "Title": "not_able_to_play_video%2C_tried", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfwDn1u7aXCbe_eGpoO/not_able_to_play_video%2C_tried"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hi Cloud Gurus. I just completed the SA exam. Should I do SysOps next or Developer Associate exam? Is the developer course only for people who work in development (coding)?", "I am seeing lot of forum topics saying that SysOps is tough. What additional topics should I study to pass both of these exams. Could someone please guide me on the right path?"
+    ], 
+    "Tags": [
+        "exam", "practice-exam", "exam-tips", "exam-tips-student-feedback"
+    ], 
+    "Title": "i_just_completed_the_sa_exam.", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgIcdA2ltCovz0Iyelk/i_just_completed_the_sa_exam."
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "This question is for the entire course: Are there transcripts for each video?  It would be nice if I could copy and paste to create notes offline."
+    ], 
+    "Tags": [
+        "overview"
+    ], 
+    "Title": "transcripts", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg612rqagOV7TGWHl7Y/transcripts"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "The SQS FAG mentions that JMS is supported - JMS does not appear to be mentioned in the lecture.  I believe that JMS is only partially supported.  I don't see any SQS API documentation which confirms that a client/server pattern could be implemented via JMS producer and consumer apps when using SQS as a JMS provider - I'm thinking specifically of the JMS feature which allows the JMS producer to create a temporary queue and pass that queue name to the consumer so that the JMS consumer can process the request and queue a reply for the JMS producer with the results.  I hope that I am wrong about that.  Could you confirm that SQS implementation only partially implements the JMS specification?"
+    ], 
+    "Tags": [
+        "app-services", "sqs"
+    ], 
+    "Title": "jms_support_with_sqs", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg0_NwwjbQ1tNh7WxRe/jms_support_with_sqs"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I see a new associate architect exam cost 75$ with extra 30 mins and some extra questions on the webassesor - AWS Certified Solutions Architect \u2013 Associate (ENGLISH) - Extended Exam. What is it? Will there be anything special that need to be focussed apart from these things you covered?"
+    ], 
+    "Tags": [], 
+    "Title": "aws_certified_solutions_archit", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfw06it4wgrIOrpUEdC/aws_certified_solutions_archit"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "Amazon RDS for MySQL, MariaDB and PostgreSQL allow you to add up to 5 read replicas to each DB Instance.",     "https://aws.amazon.com/rds/details/read-replicas/"
+        ]
+    }, 
+    "Question": [
+        "Can we add read replica to all types of RDS?", "For example can we add read replica to oracle and to SQL?"
+    ], 
+    "Tags": [
+        "well-architected-framework", "performance", "efficiency"
+    ], 
+    "Title": "read_replica", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg17i4hWpnfuZskjSxK/read_replica"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I deleted my custom VPC dependencies as directed. Proceeding to the VPC section and looking at my VPCs, I see only the default VPC.  Apparently the custom VPC is deleted automatically when all the dependencies are deleted.  Is that correct?"
+    ], 
+    "Tags": [
+        "vpc"
+    ], 
+    "Title": "i_deleted_my_custom_vpc_depend", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfw4kNgfXoBjCVwCXPT/i_deleted_my_custom_vpc_depend"
+},
+{
+    "Answers": {
+        "usr-1": [
+            "Hi Marc,",     "I think our emails back to you have been going to trash/spam as they have the information on how the manual processing works. ",     "I've processed these for you manually, so you'll have access when you next log in.",     "Cheers, Neil"
+        ]
+    }, 
+    "Question": [
+        "How long does it take to port an exam over from Udemy?  My coworker had his resolved same day, but I've been waiting 9 days. ", "I have hit a portion of the Udemy training videos where the resolution is so bad I can't tell what it says on the screen."
+    ], 
+    "Tags": [], 
+    "Title": "port_of_exam_from_udemy_-_vide", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfr0z4h2ywhLu7xU1BV/port_of_exam_from_udemy_-_vide"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "The video says there are 3 inbound rules.  I created HTTP, HTTPS and SSH rules.", "My console shows 6 inbound rules. 2 for each service/protocol.", "Example:", "TCP:  0.0.0.0/0", "TCP: ::/0", "Is this because of IPv6?"
+    ], 
+    "Tags": [], 
+    "Title": "doubled_inbound_rules", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg5q9L9oX96Xp1yyIK8/doubled_inbound_rules"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I don't see an ECS video in my course.  Other posts have referenced updated ECS material, but I don't see it.  Is it in another video?", "Thanks!"
+    ], 
+    "Tags": [], 
+    "Title": "csaa_2017_%7C_where_is_the_ecs_v", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfyFlAzX4APMza282ii/csaa_2017_%7C_where_is_the_ecs_v"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "Where can I get the security process white paper?"
+    ], 
+    "Tags": [
+        "white-papers", "white-papers-security-processes"
+    ], 
+    "Title": "where_can_i_get_the_security_p", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfwmwRvTEweKTYXx_ZA/where_can_i_get_the_security_p"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hi Ryan, are you planning to put latest video of Snowball Edge as you mentioned in the video? Or is this the latest one."
+    ], 
+    "Tags": [
+        "s3", "import-export", "snowball"
+    ], 
+    "Title": "snowball_edge_latest_video", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgHfrKfYpUv5gm7rb7U/snowball_edge_latest_video"
+},
+{
+    "Answers": {
+        "usr-1": [], "usr-2": [], "usr-3": []
+    }, 
+    "Question": [
+        "You are now ready for your exam.", "It's important to read and understand why you missed a question. In its current form there is gonna be at least 50% of the questions you will know right off the bat. After that, if you understand your stuff you should be fine. Check the 20 questions thread, I got screwed on the encrypted at rest services because they used services I rarely saw in exams questions."
+    ], 
+    "Tags": [
+        "exam", "practice-exam", "exam-tips"
+    ], 
+    "Title": "i_passed_with_87%25_-_here_how_i", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg-fWk98QUWP6UUf33o/i_passed_with_87%25_-_here_how_i"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "How can I understand the word press code?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "understand_the_word_pressing_c", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfoICCTtb194aOh_OKo/understand_the_word_pressing_c"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Seems the VPC Flow Log service will automatically create the Log Stream under the selected Log Groups."
+    ], 
+    "Tags": [
+        "vpc", "cloudwatch", "flow logs"
+    ], 
+    "Title": "do_we_need_to_create_a_log_str", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg4bnvZ7DcCzCuH9Jnw/do_we_need_to_create_a_log_str"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "This is showing al the end of all questions: \"in the EU West region. What would the URL for this bucket be?\""
+    ], 
+    "Tags": [
+        "mega-quiz-2"
+    ], 
+    "Title": "this_is_showing_in_all_questio", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kft6H3MamiXIU0TboDa/this_is_showing_in_all_questio"
+},
+{
+    "Answers": {
+        "usr-1": [], "usr-2": [], "usr-3": []
+    }, 
+    "Question": [
+        "Based on the video, does it mean that full backups are taken everyday and transactional backups are taken throughout the day ?", "Also, the size of free storage in S3 is equal to the size of DB itself. So if DB size is 01 GB I would get 10 GB of free S3 storage. Is the size of the full DB backup same as the DB size ? If yes, then on the first day itself the entire free space of 10 GB will be used, so from the very next day the charges will start to incur ?"
+    ], 
+    "Tags": [
+        "databases", "rds-read-replicas", "rds-backups", "rds-multi-az"
+    ], 
+    "Title": "backups", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgAk4A21sbKPQ6S6B7s/backups"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "So I took Ryan's amazing, very easy to follow course. I also purchased the bundle of 7 practice exams from WhizLabs and took each of them at least 3 times until I was scoring in the high 90s. I definitely saw some questions taken directly (almost word for word) from the WhizLabs tests on my official exam. Thirdly, I purchased the official AWS SA Study Guide from Amazon for $60 and read in front to back and then went back to the topics I was having a tough time grasping such as EMR, etc. Not too many surprises when I sat the exam except for at least 3 questions on ECS (not covered in this course) and some DB questions that threw me for a little bit of a loop. I ended up marking 33 questions for review and then went back and took extra time on those. ACloudGuru is awesome and has really lit a fire under me to get the other 2 Associate Level Certs and then go for the Professional ones. Thanks again Ryan and Team, if anyone has any questions please feel free to ask!"
+    ], 
+    "Tags": [], 
+    "Title": "passed_my_*extended*_solutions", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg-p53QSzOyO3gICHBY/passed_my_*extended*_solutions"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "why do we need to run", "yum update -y for in the start up script for testing the AMI? The AMI should already has the lasted version of the OS since the image was create from the OS that already execute this update commands"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "why_do_we_need_to_run_yum_upda", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfrdrrsm3lm85m25nYG/why_do_we_need_to_run_yum_upda"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I just passed the extended exam and wanted to share my study materials.  I have no prior AWS experience, but I have a background in infrastructure so I was right at home for most of the topics.", "A Cloud Guru for video training.  I went through the entire course once and a second viewing of each summary.  I took screenshots of the summary slides and reviewed an additional time.  I took all of the quizzes and practice tests once.", "I read through the recommended AWS whitepapers from Ryan and AWS (https://aws.amazon.com/certification/certification-prep/) since they differ a little bit.", "For each subject covered in the A Cloud Guru course, I read the FAQ.  I sent the web pages to my Kindle and it made reading significantly easier than sitting in front of a computer.", "I used the monthly subscription to Qwiklabs to try out all kinds of AWS services.  They even cover Lambda, ECS and EMR so this was a great resource.", "I did every practice test from Whizlabs once.  I don't like running through tests a second time because you begin recognizing or memorizing answers rather than logically figuring it out.  I highly recommend going through these practice tests prior to sitting the exam.  It helps you get into the mindset of reading every individual word so you don't get tripped up in the exam.", "I was really impressed with the exam and the wide topic coverage.  There wasn't any single service that was covered more than the others so you really do need a good general understanding of everything.  Don't worry about knowing every single detail on every topic...go for a good, general understanding instead.", "You really can get to a lot of answers by ruling out options.  There are lots of questions where the answers have nothing to do with each other so you are left with only one that comes close.", "Overall Score: 96%", "Topic Level Scoring:", "1.0 Designing highly available, cost efficient, fault tolerant, scalable systems : 96%", "2.0 Implementation/Deployment: 100%", "3.0 Security: 90%", "4.0 Troubleshooting: 100%"
+    ], 
+    "Tags": [], 
+    "Title": "passed_csa-associate_extended", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgGTI3cprH7B7gtju2H/passed_csa-associate_extended"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "The exam did raised an question regarding increase the database size after it is launched. In this case we had launched a mysql instance with 5G hard disk memory in multiple AZ. Can you please let me know the steps of how to increase the hard disk size for this database instance?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "experienced_an_exam_question", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfqgacZJ8OhpmatwGnl/experienced_an_exam_question"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "Seems like video needs to be updated. Amazon SQS automatically deletes messages that have been in a queue for more than maximum message retention period. The default message retention period is 4 days. However, you can set the message retention period to a value from 60 seconds to 1,209,600 seconds (14 days) using the SetQueueAttributes action."
+    ], 
+    "Tags": [
+        "app-services", "swf"
+    ], 
+    "Title": "sqs_retention_period", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfxnm4aXCgL3H3dzbHJ/sqs_retention_period"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Hi, I was just going through the EC2 section of the course where we create an EC2 instance with multiple disk and finally create RAID volume.It is mention that there is only manual process of taking Application consistent snapshot of a raid volume. Is this the limitation of AWS. or We need to use a enterprise backup solution like Veeam/Commvault to issue a application consistent snap of a RAID volume. Or how can we take Online application consistent snapshot."
+    ], 
+    "Tags": [
+        "ec2", "ec2-raid"
+    ], 
+    "Title": "online_application_consistent", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg9C8MLSr02fK5uEbKs/online_application_consistent"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "<1>Does the two EC2 instances that are in different AZs talk to the same database instance in one AZ?", "<2>Does the two EC2 instances that are in different AZs talk to different database instances that are in different two different AZs ?", "The concern is that two different EC2 instances use the same database endpoint. and the same database endpoint should come from one database instance that exists in only one AZ."
+    ], 
+    "Tags": [
+        "ec2", "wordpress"
+    ], 
+    "Title": "database_instance", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfoX2XP00xVP0a_bWfP/database_instance"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "for this question:", "You work for a cosmetic company which has their production website on AWS. The site itself is in a two-tier configuration with web servers in the front end and database servers at the back end. The site uses using Elastic Load Balancing and Auto Scaling. The databases maintain consistency by replicating changes to each other as and when they occur. This requires the databases to have extremely low latency. Your website needs to be highly redundant and must be designed so that if one availability zone goes offline and Auto Scaling cannot launch new instances in the remaining Availability Zones, the site will not go offline. How can the current architecture be enhanced to ensure this?", "I know the answer involves using different availability zones, not different regions, but why is it correct to configure the auto-scaling minimum to handle 50% of the peak load and not 33%?", "These are the two choices:", "Deploy your site in three different AZ's within the same region. Configure the Auto Scaling minimum to handle 50 percent of the peak load per zone.", "Deploy your site in three different AZ's within the same region. Configure the Auto Scaling minimum to handle 33 percent of the peak load per zone."
+    ], 
+    "Tags": [
+        "scenario-quiz"
+    ], 
+    "Title": "why_configure_auto-scaling_min", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgBJEYospkADDmG_lap/why_configure_auto-scaling_min"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "Based on the graphic diagram, we have two zones. zone 1 and zone 2. I guess the EC2 instance in zone 1 will talk to the database instance in zone 1. How about EC2 instance in zone 2? The fact is that we had configured the EC2 instance connects to the same database endpoint, does the EC2 instance also talk to the database instance in zone 1?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "multiple_ec2_instance_in_diffe", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfvc0YxsAvceCBywYYz/multiple_ec2_instance_in_diffe"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Took the AWS Solutions Architect Associate extended exam today. The exam was 80 questions.", "I passed with 87%. Many thanks to Ryan and team at acloud.gurus for all the helpful videos, quizzes and information. In addition to the classes, I did buy the Kindle version of the Amazon Certified Solutions Architect Official Study Guide - Associate (https://www.amazon.com/Certified-Solutions-Architect-Official-Study/dp/1119138558/ref=sr11?ie=UTF8&qid=1490300143&sr=8-1&keywords=aws+certification)", "I do recommend this book as an additional source to the videos. It has summaries and labs at the end of the chapters along with testing. I like the videos and am still getting used to learning that way. For me, having written info really helps enforce the video learning. If I had done the labs, pretty sure they would have helped.", "As for surprises - there was nothing from the services that has not been updated in the videos from acloud.guru. High level Kinesis, Opsworks, API Gateway, Lambda and ECS are good to know.  Not super detailed but you have to know how they function.  Reasons for using VPC Flow Logs and for CloudTrail. A lot of little things like knowing which services are across zones or how to move stuff from one zone to another or across regions. These are tricky. Understanding EBS and encryption is important and how you would move a volume. It seemed like NATs and bastion info is more important than I would have thought.  But they use these to test your security knowledge along with VPC knowledge. Of course, VPC is critical along with EC2 and S3. Security is woven throughout and understanding the main security on VPC, EC2, and S3 was good. There is the usual reserved, spot, on-demand instance knowledge you must have along with good cloud architecture practice.", "I have been doing AWS work for over 2 years and admittedly did study a bit for this and wanted to get above 90. I did buy a practice exam and got 85%. I did all the exams on the video sections but when I went to take the mini exam at the end\u2026. I got 47%. Freaked me out but I was within the 72 hour test taking window so I did not reschedule. I did NOT take the final exam on the acloud.guru course because I did not want to freak out more.  In the end... I cannot explain the discrepancy in the mini exam vs the real test.  It was only 2 days apart from those tests.  The amount of material is just very large in scope and it must have been a sample on items I for which I was not prepared.", "Thanks again acloud.guru for all the good videos.  Am hoping to move on the the developer course very soon."
+    ], 
+    "Tags": [], 
+    "Title": "passed_solutions_architect_ass", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfwzVWzAeKwdM3WZReu/passed_solutions_architect_ass"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Why are you not introducing the Instant store here? Is it too trivial a topic?"
+    ], 
+    "Tags": [], 
+    "Title": "what_about_instant_store", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgAIREXdAoG9jk0Yrqy/what_about_instant_store"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I have bucket with 2+ months old files with standard storage, if I am applying S3 Life cycle now to that bucket with 30 days transition to Standard Infrequent storage. Will all old files moved to Standard Infrequent Storage Immediately? I tried with this but I see still all old files are in standard storage. ", "What is the timeline to apply those transition? Will it reflect immediately or will take some time?"
+    ], 
+    "Tags": [], 
+    "Title": "creating_on_s3_life_cycle_to_a", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfy6kAsinnoyI5SNNbU/creating_on_s3_life_cycle_to_a"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "Just wondering if anyone has any idea if the associate exam still asks more questions about NAT instances instead of NAT gateways? It seems like since NAT gateways are already a year old, the exam may have been changed or updated."
+    ], 
+    "Tags": [
+        "vpc", "vpc-nat"
+    ], 
+    "Title": "does_anyone_know_if_the_exam_i", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg5qllfJr6K4joQ68m_/does_anyone_know_if_the_exam_i"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "In order to attach the new volume I had to stop the EC2 instance. I went through the video and unless I miss something I cannot find where this is suggested.", "Can you just confirm that indeed the EC2 instance must be stopped"
+    ], 
+    "Tags": [
+        "ec2", "ec2-snapshots"
+    ], 
+    "Title": "ec2_instance_to_be_stopped_bef", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfrhI__wOUlGWoRnsmo/ec2_instance_to_be_stopped_bef"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Can we migrate from SQL to NoSQL using DMS"
+    ], 
+    "Tags": [
+        "overview"
+    ], 
+    "Title": "migrate_from_sql_to_nosql", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgIqDtXqBpT05bUHDdO/migrate_from_sql_to_nosql"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "I am trying to SSH private IP Address in Public Server. I copied the key and paste it on Clipboard then I tried using this command ssh ec2-user@10.0.2.109 -i puttykey.pem. But I got an error \"Permission Denied (Public Key). Can anyone help me out with this issue? I followed all the same steps as Ryan did in the Video. Thanks."
+    ], 
+    "Tags": [
+        "vpc-nat"
+    ], 
+    "Title": "issue_while_ssh_to_public_ip_a", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg2PROh2l_n4B99v6rV/issue_while_ssh_to_public_ip_a"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "AWS Storage Gateway for VMWare esxi", "I downloaded the OVA package and installed in my v sphere server, power on the appliance", "asking for console login credentials", "If i search for the default login credentials for that appliance, no where mentioned in the AWS documentation", "Please specify any documentation how to login and change the settings"
+    ], 
+    "Tags": [], 
+    "Title": "aws_storage_gateway_default_lo", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg4U6rhs6YF14iNQdVA/aws_storage_gateway_default_lo"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "This lab is doing auto scaling based on the CPU usage off EC2 instances but in the real word, database performance can easily be a bottleneck for heavy database transaction applications. In AWS, is there a way to balance to do auto scaling based on the working load of database transactions in different AZ?"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "how_to_balance_mysql_working_l", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KfvZdeto0npiDyuWNJt/how_to_balance_mysql_working_l"
+},
+{
+    "Answers": {
+        "usr-1": []
+    }, 
+    "Question": [
+        "When putting the below public address of EC2 into the browser ", "http://54.210.142.45", "I got the below error message:", "Your PHP installation appears to be missing the MySQL extension which is required by WordPress"
+    ], 
+    "Tags": [
+        "ec2"
+    ], 
+    "Title": "installation_issue", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kfqs2aH7u1wVtAKJN5I/installation_issue"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "Objects in S3 are stored as key/value pairs.  How about folders?  How does their structure look under the hood in S3?", "How does the naming of folders affect the access performance?  It was mentioned that files with similar names can impart a performance hit and that a random character should be added to decrease the hit.  Does the same apply to folder naming?"
+    ], 
+    "Tags": [
+        "s3", "s3-buckets"
+    ], 
+    "Title": "s3_folder_structure", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KgBh8-7LtM6P2SdGAr3/s3_folder_structure"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "What is the different between AWS IMPORT/EXPORT and VM IMPORT/EXPORT?"
+    ], 
+    "Tags": [], 
+    "Title": "aws_import~2Fexport_and_vm_impor", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg6xfMqxB8Mn6ISjjKr/aws_import~2Fexport_and_vm_impor"
+},
+{
+    "Answers": {}, 
+    "Question": [
+        "The new users use the sign-in link and their username and password to login to the console. While for programmatic access, it required only Access key ID and Secret Access key (does not require anything like sign-in user. Does that mean that the sign-in account info is embedded into Access key ID and Secret Access key ?"
+    ], 
+    "Tags": [
+        "ec2", "cli", "ec2-cli"
+    ], 
+    "Title": "aws_command_line_access_does_n", 
+    "awsTag": "sa-pro-new", 
+    "crawled": "True", 
+    "dateScraped": "2017-03-28", 
+    "pageLoadWaitTime": "59", 
+    "pgCrawled": "1", 
+    "sourceUrl": "https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-Kg0Axor1Y9xnVZCMEMs/aws_command_line_access_does_n"
+}]
